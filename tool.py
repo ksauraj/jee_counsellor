@@ -37,7 +37,13 @@ def csab_rounds():
 
 # define the path of csv files for different types of colleges
 def csv_files(type, round):
-    cwd = os.getcwd()
+    # Get path to the temporary folder created by PyInstaller
+    if getattr(sys, 'frozen', False):
+        # If the script is running in a PyInstaller bundle
+        cwd = sys._MEIPASS
+    else:
+        # If the script is running from the original Python file
+        cwd = os.getcwd()
     if type == "josaa" :
         josaa_rounds = round
         CSV_FILES = {
