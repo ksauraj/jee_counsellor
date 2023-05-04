@@ -30,7 +30,7 @@ jobs:
     - name: Build Executable
       run: |
         pyinstaller --onefile --add-data 'csab/*:csab' --add-data 'josaa/*:josaa' --exclude-module _tkinter tool.py
-        mv dist/tool.py  jcounsellor
+        mv dist/tool  jcounsellor
 
 
     - uses: actions/upload-artifact@v3
