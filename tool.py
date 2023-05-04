@@ -1,4 +1,5 @@
 import os
+import platform
 import pandas as pd
 from datetime import datetime
 import subprocess
@@ -88,17 +89,25 @@ def josaa_institue_types(CSV_FILES):
 
 
 def display_df_web(df):
+    output_dir = 'output'
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     # create a unique filename based on the current date and time
-    filename = f"output/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.html"
+    filename = os.path.join(output_dir, f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.html")
 
     # convert the DataFrame to an HTML table and save it to the file
     html = df.to_html()
     with open(filename, "w") as file:
         file.write(html)
-
+    print(filename)
     # open the file in the default web browser
-    subprocess.Popen(["xdg-open", filename], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    if platform.system() == "Windows":
+        subprocess.Popen(["start", filename], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", filename], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        subprocess.Popen(["xdg-open", filename], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 # main function to run the CLI tool
@@ -239,4 +248,3 @@ def main(df):
 
 # run the main function
 pre_setup()
-
