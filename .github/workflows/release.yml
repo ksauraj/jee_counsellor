@@ -24,6 +24,7 @@ jobs:
     - name: Install PyInstaller
       run: |
         python -m pip install pyinstaller
+        pip install pandas datetime
 
     - name: Install dependencies
       run: |
