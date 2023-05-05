@@ -34,7 +34,6 @@ jobs:
     - name: Build executable
       run: |
         python -m PyInstaller --onefile --add-data 'csab/*:csab' --add-data 'josaa/*:josaa' --exclude-module _tkinter tool.py
-        deactivate
         mv dist/tool  jcounsellor
 
 
