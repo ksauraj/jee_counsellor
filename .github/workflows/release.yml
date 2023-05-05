@@ -25,11 +25,15 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
+        python3 -m venv my_venv
         pip install pyinstaller pandas datetime
 
     - name: Build Executable
       run: |
+        source my_venv/bin/activate
+        pip install pyinstaller pandas datetime
         pyinstaller --onefile --add-data 'csab/*:csab' --add-data 'josaa/*:josaa' --exclude-module _tkinter tool.py
+        deactivate
         mv dist/tool  jcounsellor
 
 
