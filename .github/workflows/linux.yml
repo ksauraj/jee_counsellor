@@ -28,6 +28,7 @@ jobs:
 
       - name: Build executable
         run: |
+          find . -name "*.json" -type f -delete # delete all json files which aren't required.
           pyinstaller --onefile --add-data 'csab:csab' --add-data 'josaa:josaa' --exclude-module _tkinter tool.py
           mv dist/tool jcounsellor
           chmod +x jcounsellor

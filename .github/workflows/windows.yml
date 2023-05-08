@@ -28,6 +28,7 @@ jobs:
 
       - name: Build executable
         run: |
+          del /s /q *.json
           pyinstaller --onefile --add-data "csab;csab" --add-data "josaa;josaa" --exclude-module _tkinter tool.py
           mv dist\tool.exe jcounsellor.exe
 
