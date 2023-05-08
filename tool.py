@@ -78,7 +78,7 @@ def josaa_institue_types(CSV_FILES):
 
     # ask for user input for institute type
     print("Select Institute type:")
-    print("1. ALL")
+    print("1. ALL (No IITs Included)")
     print("2. IIITs")
     print("3. NITs")
     print("4. GFTIs")
@@ -103,7 +103,20 @@ def josaa_institue_types(CSV_FILES):
     # read the csv file based on the selected college type
     csv_path = CSV_FILES[college_type]
     df = pd.read_csv(csv_path)
-    main(df)
+    if option == "1":
+        # Remove all IITs occurance if "ALL" option was choosed.
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Technology')]
+        main(df)
+    elif option == "5":
+        # fix ranks with strings in it.
+        df['Closing Rank'] = df['Closing Rank'].str.extract(
+            r'(\d+)').astype(float)
+        df['Opening Rank'] = df['Opening Rank'].str.extract(
+            r'(\d+)').astype(int)
+        main(df)
+    else:
+        main(df)
 
 
 def filter_programs(institute_df):
@@ -219,7 +232,7 @@ def main(df):
         os.system("cls" if os.name == "nt" else "clear")
         rank = int(input("Enter your rank: "))
         filtered_df["Closing Rank"] = filtered_df["Closing Rank"].astype(
-            str).str.extract(r"(\d+)").astype(float)
+            str).str.extract(r"(\d+)").astype(int)
         filtered_df = filtered_df[filtered_df["Closing Rank"] > rank].sort_values(
             by=["Closing Rank"], ascending=True)
 
