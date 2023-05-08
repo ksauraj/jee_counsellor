@@ -1,0 +1,43 @@
+name: Build and Release Windows Executable
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag name'
+        required: true
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install PyInstaller
+        run: python -m pip install pyinstaller
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --add-data "csab;csab" --add-data "josaa;josaa" --exclude-module _tkinter tool.py
+          mv dist\tool.exe jcounsellor.exe
+
+      - name: Create release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.TOKEN }}
+          automatic_release_tag: ${{ github.event.inputs.release_tag }}
+          prerelease: false
+          title: JEECounsellor (Windows) - ${{ github.event.inputs.release_tag }}
+          files: |
+            jcounsellor.exe
+
