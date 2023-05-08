@@ -34,8 +34,9 @@ jobs:
 
     - name: Build executable
       run: |
-        python -m PyInstaller --onefile --add-data 'csab/*:csab' --add-data 'josaa/*:josaa' --exclude-module _tkinter tool.py
+        python -m PyInstaller --onefile --add-data 'csab:csab' --add-data 'josaa:josaa' --exclude-module _tkinter tool.py
         mv dist/tool  jcounsellor
+        chmod +x jcounsellor
 
 
     - uses: actions/upload-artifact@v3
