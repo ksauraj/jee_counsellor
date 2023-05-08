@@ -4,13 +4,15 @@ import platform
 import subprocess
 import pandas as pd
 from datetime import datetime
+from colorama import init, Fore
 
+init()
 
 def pre_setup():
     os.system("cls" if os.name == "nt" else "clear")
-    print("Select Counseling type:")
-    print("1. JOSAA")
-    print("2. CSAB")
+    print(Fore.YELLOW + "Select Counseling type:")
+    print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
+    print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
     option = input("Select Option (1 to 2) : ")
     if option == '1':
         josaa_rounds()
@@ -20,23 +22,31 @@ def pre_setup():
 
 def josaa_rounds():
     os.system("cls" if os.name == "nt" else "clear")
-    print("Select JOSAA round (2022)")
-    print("1. Round 1")
-    print("2. Round 2")
-    print("3. Round 3")
-    print("4. Round 4")
-    print("5. Round 5")
-    print("6. Round 6")
-    josaa_rounds = input("Select Option (1 to 6) : ")
+    print(Fore.YELLOW + "Select JOSAA round (2022)")
+    
+    menu_options = [
+        "Round 1",
+        "Round 2",
+        "Round 3",
+        "Round 4",
+        "Round 5",
+        "Round 6"
+    ]
+    
+    for i, option in enumerate(menu_options, start=1):
+        print(f"{Fore.GREEN}{i}. {Fore.RESET}{Fore.BLUE}{option}" + Fore.RESET)
+    
+    josaa_rounds = input("Select Option (1 to 6): ")
     csv_files("josaa", josaa_rounds)
+
 
 
 def csab_rounds():
     os.system("cls" if os.name == "nt" else "clear")
     print("Select CSAB round (2022)")
-    print("1. Round 1")
-    print("2. Round 2")
-    csab_round = input("Select Option (1 to 2) : ")
+    print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
+    print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
+    csab_round = input(Fore.RESET + "Select Option (1 to 2) : ")
     csv_files("csab", csab_round)
 
 # define the path of csv files for different types of colleges
@@ -78,12 +88,12 @@ def josaa_institue_types(CSV_FILES):
 
     # ask for user input for institute type
     print("Select Institute type:")
-    print("1. ALL (No IITs Included)")
-    print("2. IIITs")
-    print("3. NITs")
-    print("4. GFTIs")
-    print("5. IITs")
-    option = input("Select Option (1 to 5): ")
+    print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
+    print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
+    print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
+    print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
+    print(Fore.GREEN + "5." + Fore.BLUE + "IITs")
+    option = input(Fore.RESET + "Select Option (1 to 5): ")
 
     # filter the dataframe based on the selected option
     if option == "1":
@@ -122,19 +132,19 @@ def josaa_institue_types(CSV_FILES):
 def filter_programs(institute_df):
     print("Note: Programs marked with '*' will display all the programs similar to them.")
     print("Select Program:")
-    print("1. All")
-    print("2. Computer Science and Engineering*")
-    print("3. Artificial Intelligence and Data Science*")
-    print("4. Electronics and Communication Engineering*")
-    print("5. Information Technology*")
-    print("6. Mechanical Engineering*")
-    print("7. Civil Engineering*")
-    print("8. Electrical Engineering*")
-    print("9. Data Science and Engineering*")
-    print("10. Biotechnology*")
-    print("11. Chemical Engineering*")
-    print("12. Smart Manufacturing*")
-    print("13. Check Next Page")
+    print(Fore.GREEN + "1." + Fore.BLUE + "All")
+    print(Fore.GREEN + "2." + Fore.BLUE + "Computer Science and Engineering*")
+    print(Fore.GREEN + "3." + Fore.BLUE + "Artificial Intelligence and Data Science*")
+    print(Fore.GREEN + "4." + Fore.BLUE + "Electronics and Communication Engineering*")
+    print(Fore.GREEN + "5." + Fore.BLUE + "Information Technology*")
+    print(Fore.GREEN + "6." + Fore.BLUE + "Mechanical Engineering*")
+    print(Fore.GREEN + "7." + Fore.BLUE + "Civil Engineering*")
+    print(Fore.GREEN + "8." + Fore.BLUE + "Electrical Engineering*")
+    print(Fore.GREEN + "9." + Fore.BLUE + "Data Science and Engineering*")
+    print(Fore.GREEN + "10." + Fore.BLUE + "Biotechnology*")
+    print(Fore.GREEN + "11." + Fore.BLUE + "Chemical Engineering*")
+    print(Fore.GREEN + "12." + Fore.BLUE + "Smart Manufacturing*")
+    print(Fore.GREEN + "13." + Fore.YELLOW + "Check Next Page" + Fore.RESET)
     print("")
 
     program_choices = {
@@ -164,12 +174,12 @@ def filter_programs(institute_df):
         os.system("cls" if os.name == "nt" else "clear")
         programs = institute_df["Academic Program Name"].unique()
         for i, program in enumerate(programs, start=14):
-            print(f"{i}. {program}")
+            print(f"{Fore.GREEN}{i}. {Fore.BLUE}{program}{Fore.RESET}")
         program_choice = int(input("Choose Option: "))
         program = programs[program_choice - 14]
         filtered_df = institute_df[institute_df["Academic Program Name"] == program]
     else:
-        print("Invalid choice. Please try again.")
+        print(Fore.RED + "Invalid choice. Please try again." + Fore.RESET)
         return
 
     return filtered_df
@@ -215,10 +225,10 @@ def main(df):
         def filter_by_choice(choices, column_name):
             os.system("cls" if os.name == "nt" else "clear")
             print(f"Select {column_name} :")
-            print("1. All")
+            print(Fore.GREEN + "1." + Fore.BLUE + " All")
             unique_choices = institute_df[column_name].unique()
             for i, choice in enumerate(unique_choices, start=2):
-                print(f"{i}. {choice}")
+                print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
             choice = int(input("Choose Option : "))
             if choice != 1:
                 selected_choice = unique_choices[choice - 2]
@@ -230,7 +240,7 @@ def main(df):
         filtered_df = filter_by_choice(institute_df["Gender"], "Gender")
 
         os.system("cls" if os.name == "nt" else "clear")
-        rank = int(input("Enter your rank: "))
+        rank = int(input(Fore.YELLOW + "Enter your rank: " + Fore.RESET))
         filtered_df["Closing Rank"] = filtered_df["Closing Rank"].astype(
             str).str.extract(r"(\d+)").astype(int)
         filtered_df = filtered_df[filtered_df["Closing Rank"] > rank].sort_values(
@@ -238,9 +248,9 @@ def main(df):
 
         os.system("cls" if os.name == "nt" else "clear")
         display_df_web(filtered_df)
-        print("Congratulations! File successfully opened in browser.")
+        print(Fore.GREEN + "Congratulations! File successfully opened in browser." + Fore.RESET)
         print("")
-        choice = input("Press Enter to continue or type 'exit' to exit: ")
+        choice = input(f"Press Enter to continue or type {Fore.YELLOW}'exit'{Fore.RESET} to exit: ")
         if choice.lower() == "exit":
             break
 
