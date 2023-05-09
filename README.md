@@ -10,17 +10,18 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
 ## Table of Contents
 
 - [Installation](#installation)
-  - [Through Executable (Fast to install and setup, but slow to execute.)](#executable)
+  - [Through Executable (Fast to install and setup, but slow to execute.)](#executable-might-be-slow)
     - [Windows](#windows)
     - [Mac](#mac)
     - [Linux](#linux)
   - [Cloning from the Source](#cloning-from-the-source)
-    - [Windows](#cloning-from-the-source--windows)
-    - [Mac](#cloning-from-the-source--linux-mac)
-    - [Linux](#cloning-from-the-source--linux-mac)
+    - [Windows](#cloning-from-the-source--windows-)
+    - [Mac](#cloning-from-the-source-linux--mac-)
+    - [Linux](#cloning-from-the-source-linux--mac-)
 - [Dependencies](#dependencies)
 - [Usage](#usage)
 - [License](#license)
+- [Credit](#credit)
 
 ## Installation
 
@@ -186,4 +187,4 @@ This project is licensed under the GNU General Public License v3.0. For more det
 
 
 ## Credit
-- **Tool Developer**: This project has been developed by [Ksauraj](https://github.com/ksauraj).
+- **This project has been developed by** [Ksauraj](https://github.com/ksauraj).
