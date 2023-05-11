@@ -8,6 +8,7 @@ from colorama import init, Fore
 
 init()
 
+
 def pre_setup():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.YELLOW + "Select Counseling type:")
@@ -23,7 +24,7 @@ def pre_setup():
 def josaa_rounds():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.YELLOW + "Select JOSAA round (2022)")
-    
+
     menu_options = [
         "Round 1",
         "Round 2",
@@ -32,13 +33,12 @@ def josaa_rounds():
         "Round 5",
         "Round 6"
     ]
-    
+
     for i, option in enumerate(menu_options, start=1):
         print(f"{Fore.GREEN}{i}. {Fore.RESET}{Fore.BLUE}{option}" + Fore.RESET)
-    
+
     josaa_rounds = input("Select Option (1 to 6): ")
     csv_files("josaa", josaa_rounds)
-
 
 
 def csab_rounds():
@@ -79,7 +79,45 @@ def csv_files(type, round):
             f"round_{csab_rounds}",
             "ranks.csv")
         df = pd.read_csv(csv_path)
-        main(df)
+        csab_institue_types(df)
+
+def csab_institue_types(df):
+    # clear the screen
+    os.system("cls" if os.name == "nt" else "clear")
+
+    # ask for user input for institute type
+    print("Select Institute type:")
+    print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
+    print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
+    print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
+    print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
+    print(Fore.GREEN + "5." + Fore.BLUE + "IITs")
+    option = input(Fore.RESET + "Select Option (1 to 5): ")
+
+    # filter the dataframe based on the selected option
+    if option == "1":
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Technology')]
+    elif option == "2":
+        df = df[df['Institute'].str.contains(
+            'Indian Institute of Information Technology')]
+    elif option == "3":
+        df = df[df['Institute'].str.contains(
+            'National Institute of Technology')]
+    elif option == "4":
+        df = df[~df['Institute'].str.contains(
+            'National Institute of Technology')]
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Information Technology')]
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Technology')]
+    elif option == "5":
+        df = df[df['Institute'].str.contains(
+            'Indian Institute of Technology')]
+    else:
+        print("Invalid option. Please select again.")
+
+    main(df)
 
 
 def josaa_institue_types(CSV_FILES):
@@ -134,8 +172,10 @@ def filter_programs(institute_df):
     print("Select Program:")
     print(Fore.GREEN + "1." + Fore.BLUE + "All")
     print(Fore.GREEN + "2." + Fore.BLUE + "Computer Science and Engineering*")
-    print(Fore.GREEN + "3." + Fore.BLUE + "Artificial Intelligence and Data Science*")
-    print(Fore.GREEN + "4." + Fore.BLUE + "Electronics and Communication Engineering*")
+    print(Fore.GREEN + "3." + Fore.BLUE +
+          "Artificial Intelligence and Data Science*")
+    print(Fore.GREEN + "4." + Fore.BLUE +
+          "Electronics and Communication Engineering*")
     print(Fore.GREEN + "5." + Fore.BLUE + "Information Technology*")
     print(Fore.GREEN + "6." + Fore.BLUE + "Mechanical Engineering*")
     print(Fore.GREEN + "7." + Fore.BLUE + "Civil Engineering*")
@@ -248,9 +288,13 @@ def main(df):
 
         os.system("cls" if os.name == "nt" else "clear")
         display_df_web(filtered_df)
-        print(Fore.GREEN + "Congratulations! File successfully opened in browser." + Fore.RESET)
+        print(
+            Fore.GREEN +
+            "Congratulations! File successfully opened in browser." +
+            Fore.RESET)
         print("")
-        choice = input(f"Press Enter to continue or type {Fore.YELLOW}'exit'{Fore.RESET} to exit: ")
+        choice = input(
+            f"Press Enter to continue or type {Fore.YELLOW}'exit'{Fore.RESET} to exit: ")
         if choice.lower() == "exit":
             break
 
