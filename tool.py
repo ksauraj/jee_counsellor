@@ -274,7 +274,8 @@ def main(df):
                 selected_choice = unique_choices[choice - 2]
                 return filtered_df[filtered_df[column_name] == selected_choice]
             return filtered_df
-
+        
+        filtered_df = filter_by_choice(institute_df["Institute"], "Institute")
         filtered_df = filter_by_choice(institute_df["Quota"], "Quota")
         filtered_df = filter_by_choice(institute_df["Seat Type"], "Seat Type")
         filtered_df = filter_by_choice(institute_df["Gender"], "Gender")
