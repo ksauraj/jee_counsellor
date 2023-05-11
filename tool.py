@@ -81,6 +81,7 @@ def csv_files(type, round):
         df = pd.read_csv(csv_path)
         csab_institue_types(df)
 
+
 def csab_institue_types(df):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
@@ -263,18 +264,42 @@ def main(df):
         filtered_df = filter_programs(institute_df)
 
         def filter_by_choice(choices, column_name):
-            os.system("cls" if os.name == "nt" else "clear")
-            print(f"Select {column_name} :")
-            print(Fore.GREEN + "1." + Fore.BLUE + " All")
             unique_choices = institute_df[column_name].unique()
-            for i, choice in enumerate(unique_choices, start=2):
-                print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
-            choice = int(input("Choose Option : "))
-            if choice != 1:
-                selected_choice = unique_choices[choice - 2]
-                return filtered_df[filtered_df[column_name] == selected_choice]
+            num_choices = len(unique_choices)
+            start_index = 0
+            batch_size = 15
+
+            while start_index < num_choices:
+                os.system("cls" if os.name == "nt" else "clear")
+                print(f"Select {column_name} :")
+                print(Fore.GREEN + "1." + Fore.BLUE + " All")
+                end_index = start_index + batch_size
+                current_choices = unique_choices[start_index:end_index]
+
+                for i, choice in enumerate(
+                        current_choices, start=start_index + 2):
+                    print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
+
+                if end_index < num_choices:
+                    print(f"{Fore.GREEN}{end_index+2}. Next {batch_size}")
+
+                if start_index > 0:
+                    print(f"{Fore.GREEN}{end_index+3}. Return to Last Page")
+
+                choice = int(input("Choose Option : "))
+
+                if choice == end_index + 2 and end_index < num_choices:
+                    start_index = end_index
+                elif choice == end_index + 3 and start_index > 0:
+                    start_index -= batch_size
+                elif choice != 1:
+                    selected_choice = unique_choices[choice - 2]
+                    return filtered_df[filtered_df[column_name]
+                                       == selected_choice]
+                else:
+                    return filtered_df
             return filtered_df
-        
+
         filtered_df = filter_by_choice(institute_df["Institute"], "Institute")
         filtered_df = filter_by_choice(institute_df["Quota"], "Quota")
         filtered_df = filter_by_choice(institute_df["Seat Type"], "Seat Type")
