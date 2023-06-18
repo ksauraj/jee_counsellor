@@ -33,7 +33,26 @@ The JEE Counsellor tool is available as an executable for Windows, Mac, and Linu
 
 - Download the `jcounsellor.exe` executable file from the [latest release](https://github.com/ksauraj/jee_counsellor/releases).
 
-- Double-click the `jcounsellor.exe` file to run the tool.
+- Before running the tool, Windows may display a security warning message that prevents the execution of the tool. This is a precautionary measure to ensure the safety of your system. However, since jcounsellor is an open-source tool, you can bypass this security check and run the tool.
+
+  - Here are two methods to bypass the security check:
+
+    - Method 1: Use the "Run Anyway" option
+
+      - When the security warning message appears, click on the "More info" link.
+      - A new option "Run Anyway" should appear. Click on it to run the tool.
+
+    - Method 2: Unblock the file
+
+      - Right-click on the jcounsellor.exe file.
+      - Select "Properties" from the context menu.
+      - In the Properties window, locate and click on the "Unblock" button, if available.
+      - Click "Apply" and then "OK" to save the changes.
+
+    - By choosing the "Run Anyway" option or unblocking the file, you are indicating that you trust the source and intend to run the tool on your system.
+
+    - Double-click the jcounsellor.exe file to run the tool. You should now be able to launch and use jcounsellor without any issues.
+> Note: Please understand that obtaining a license for commercial software can be expensive, and as an open-source tool, jcounsellor does not require any license fees. This allows us to provide the tool free of charge. However, it also means that we may not be able to offer the same level of support or additional features as commercial alternatives.
 
 #### Mac
 
