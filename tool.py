@@ -167,16 +167,13 @@ def josaa_institue_types(CSV_FILES):
     else:
         main(df)
 
-
 def filter_programs(institute_df):
     print("Note: Programs marked with '*' will display all the programs similar to them.")
     print("Select Program:")
     print(Fore.GREEN + "1." + Fore.BLUE + "All")
     print(Fore.GREEN + "2." + Fore.BLUE + "Computer Science and Engineering*")
-    print(Fore.GREEN + "3." + Fore.BLUE +
-          "Artificial Intelligence and Data Science*")
-    print(Fore.GREEN + "4." + Fore.BLUE +
-          "Electronics and Communication Engineering*")
+    print(Fore.GREEN + "3." + Fore.BLUE + "Artificial Intelligence and Data Science*")
+    print(Fore.GREEN + "4." + Fore.BLUE + "Electronics and Communication Engineering*")
     print(Fore.GREEN + "5." + Fore.BLUE + "Information Technology*")
     print(Fore.GREEN + "6." + Fore.BLUE + "Mechanical Engineering*")
     print(Fore.GREEN + "7." + Fore.BLUE + "Civil Engineering*")
@@ -190,7 +187,7 @@ def filter_programs(institute_df):
 
     program_choices = {
         1: '',
-        2: 'Computer Science',
+        2: 'Computer Science and Engineering',
         3: 'Artificial Intelligence and Data Science',
         4: 'Electronics and Communication Engineering',
         5: 'Information Technology',
@@ -203,27 +200,34 @@ def filter_programs(institute_df):
         12: 'Smart Manufacturing'
     }
 
-    program_choice = int(input("Choose Option: "))
+    program_input = input("Choose Option(s) (separated by space): ")
+    program_choices_list = program_input.split()
 
-    if program_choice == 1:
-        filtered_df = institute_df
-    elif program_choice in program_choices:
-        program_regex = f"{program_choices[program_choice]}.*"
+    filtered_df = institute_df
+
+    if '1' not in program_choices_list:
         filtered_df = institute_df[institute_df["Academic Program Name"].str.contains(
-            program_regex)]
-    elif program_choice == 13:
+            '|'.join([program_choices.get(int(choice), '') for choice in program_choices_list]))]
+
+    if len(filtered_df) == 0:
+        print(Fore.RED + "No programs found matching the selected options." + Fore.RESET)
+        return filtered_df
+
+    if '13' in program_choices_list:
         os.system("cls" if os.name == "nt" else "clear")
-        programs = institute_df["Academic Program Name"].unique()
+        programs = filtered_df["Academic Program Name"].unique()
         for i, program in enumerate(programs, start=14):
             print(f"{Fore.GREEN}{i}. {Fore.BLUE}{program}{Fore.RESET}")
         program_choice = int(input("Choose Option: "))
-        program = programs[program_choice - 14]
-        filtered_df = institute_df[institute_df["Academic Program Name"] == program]
-    else:
-        print(Fore.RED + "Invalid choice. Please try again." + Fore.RESET)
-        return
+        if program_choice >= 14 and program_choice < 14 + len(programs):
+            program = programs[program_choice - 14]
+            filtered_df = filtered_df[filtered_df["Academic Program Name"] == program]
+        else:
+            print(Fore.RED + "Invalid choice. Please try again." + Fore.RESET)
+            return filtered_df
 
     return filtered_df
+
 
 
 def display_df_web(df):
