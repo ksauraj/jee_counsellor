@@ -17,8 +17,10 @@ def pre_setup():
     option = input("Select Option (1 to 2) : ")
     if option == '1':
         josaa_rounds()
-    else:
+    elif option == '2':
         csab_rounds()
+    else :
+        pre_setup()
 
 
 def josaa_rounds():
@@ -37,8 +39,11 @@ def josaa_rounds():
     for i, option in enumerate(menu_options, start=1):
         print(f"{Fore.GREEN}{i}. {Fore.RESET}{Fore.BLUE}{option}" + Fore.RESET)
 
-    josaa_rounds = input("Select Option (1 to 6): ")
-    csv_files("josaa", josaa_rounds)
+    selected_round = input("Select Option (1 to 6): ")
+    if int(selected_round) > 6:
+        return josaa_rounds()  # Return the function call instead of directly calling it
+    csv_files("josaa", selected_round)
+
 
 
 def csab_rounds():
