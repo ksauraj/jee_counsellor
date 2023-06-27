@@ -41,7 +41,7 @@ def josaa_rounds():
 
     selected_round = input("Select Option (1 to 6): ")
     if int(selected_round) > 6:
-        return josaa_rounds()  # Return the function call instead of directly calling it
+        return josaa_rounds()
     csv_files("josaa", selected_round)
 
 
@@ -235,7 +235,7 @@ def filter_programs(institute_df):
 
 
 
-def display_df_web(df):
+def display_df_web(df, heading, subheading):
     output_dir = 'output'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -244,12 +244,138 @@ def display_df_web(df):
         output_dir,
         f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.html")
 
-    # convert the DataFrame to an HTML table and save it to the file
-    html = df.to_html()
+    # convert the DataFrame to an HTML table
+    html_table = df.to_html(index=False, classes='table')
+
+    # Generate the complete HTML content with headings, CSS styles, and the table
+    html_content = f'''
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{heading}</title>
+        <style>
+        html, body {{
+            height: 100%;
+            text-align: center;
+            font-family: Tahoma, sans-serif;
+        }}
+
+        body {{
+            margin: 30px;
+        }}
+
+        table.table {{
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 350px;
+            border: none;  /* Remove the border attribute */
+        }}
+
+        table.table tr th,
+        table.table tr td {{
+            border-right: 1px solid #bbb;
+            border-bottom: 1px solid #bbb;
+            padding: 5px;
+        }}
+
+        table.table tr th:first-child,
+        table.table tr td:first-child {{
+            border-left: 1px solid #bbb;
+        }}
+
+        table.table tr th {{
+            background: #eee;
+            border-top: 1px solid #bbb;
+            text-align: center;
+        }}
+
+        /* top-left border-radius */
+        table.table tr:first-child th:first-child {{
+            border-top-left-radius: 6px;
+        }}
+
+        /* top-right border-radius */
+        table.table tr:first-child th:last-child {{
+            border-top-right-radius: 6px;
+        }}
+
+        /* bottom-left border-radius */
+        table.table tr:last-child td:first-child {{
+            border-bottom-left-radius: 6px;
+        }}
+
+        /* bottom-right border-radius */
+        table.table tr:last-child td:last-child {{
+            border-bottom-right-radius: 6px;
+        }}
+
+        a {{
+            text-decoration: none;
+            color: #18272F;
+            font-weight: 700;
+        position: relative;
+        }}
+
+        a::before {{
+        content: '';
+        background-color: hsla(0, 100%, 50%, 0.236);
+        position: absolute;
+        left: 0;
+        bottom: 3px;
+        width: 100%;
+        height: 8px;
+        z-index: -1;
+        transition: all .3s ease-in-out;
+        }}
+
+        a:hover::before {{
+        bottom: 0;
+        height: 100%;
+        background-color: hsla(142, 61%, 58%, 0.359);
+        }}
+
+        table.table tbody tr:hover {{
+            background-color: rgba(159, 131, 86, 0.3);
+            filter: none;
+            transform: scale(1.005);
+        }}
+        </style>
+    </head>
+    <body>
+        <h1><a href="https://github.com/ksauraj/jee_counsellor">{heading}</a></h1>
+        <h2><a href="https://sauraj.eu.org">{subheading}</a></h2>
+        <div class="container">
+            {html_table}
+        </div>
+    </body>
+    </html>
+    '''
+
+
+
+
+
+
+    # Save the HTML content to the file
     with open(filename, "w") as file:
-        file.write(html)
+        file.write(html_content)
+
     print(filename)
     # open the file in the default web browser
+
+    if platform.system() == "Windows":
+        subprocess.Popen(["start",
+                          filename],
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL,
+                         shell=True)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", filename],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        subprocess.Popen(["xdg-open", filename],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 
     if platform.system() == "Windows":
         subprocess.Popen(["start",
@@ -322,7 +448,7 @@ def main(df):
             by=["Closing Rank"], ascending=True)
 
         os.system("cls" if os.name == "nt" else "clear")
-        display_df_web(filtered_df)
+        display_df_web(filtered_df, "JEE Counsellor", "-By Ksauraj")
         print(
             Fore.GREEN +
             "Congratulations! File successfully opened in browser." +
