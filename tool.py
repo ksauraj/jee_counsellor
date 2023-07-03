@@ -16,16 +16,28 @@ def pre_setup():
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
     option = input("Select Option (1 to 2) : ")
     if option == '1':
-        josaa_rounds()
+        josaa_rounds_year()
     elif option == '2':
         csab_rounds()
     else :
         pre_setup()
 
-
-def josaa_rounds():
+def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
-    print(Fore.YELLOW + "Select JOSAA round (2022)")
+    print("Select JOSAA round year")
+    print(Fore.GREEN + "1." + Fore.BLUE + "2022")
+    print(Fore.GREEN + "2." + Fore.BLUE + "2023" + Fore.RESET)
+    josaa_round_year_sel = input("Select Option (1 to 2): ")
+    if josaa_round_year_sel == "1":
+        josaa_round_year = "2022"
+    elif josaa_round_year_sel == "2":
+        josaa_round_year = "2023"
+    print(josaa_round_year)
+    josaa_rounds(josaa_round_year)
+
+def josaa_rounds(josaa_round_year):
+    os.system("cls" if os.name == "nt" else "clear")
+    print(Fore.YELLOW + "Select JOSAA round")
 
     menu_options = [
         "Round 1",
@@ -42,7 +54,7 @@ def josaa_rounds():
     selected_round = input("Select Option (1 to 6): ")
     if int(selected_round) > 6:
         return josaa_rounds()
-    csv_files("josaa", selected_round)
+    csv_files("josaa", selected_round, josaa_round_year)
 
 
 
@@ -52,12 +64,12 @@ def csab_rounds():
     print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
     print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
     csab_round = input(Fore.RESET + "Select Option (1 to 2) : ")
-    csv_files("csab", csab_round)
+    csv_files("csab", csab_round, "")
 
 # define the path of csv files for different types of colleges
 
 
-def csv_files(type, round):
+def csv_files(type, round, year):
     # Get path to the temporary folder created by PyInstaller
     if getattr(sys, 'frozen', False):
         # If the script is running in a PyInstaller bundle
@@ -68,11 +80,11 @@ def csv_files(type, round):
     if type == "josaa":
         josaa_rounds = round
         CSV_FILES = {
-            "ALL": os.path.join(cwd, "josaa", "2022", f"round_{josaa_rounds}", "ranks_all.csv"),
-            "IIITs": os.path.join(cwd, "josaa", "2022", f"round_{josaa_rounds}", "ranks_iiits.csv"),
-            "IITs": os.path.join(cwd, "josaa", "2022", f"round_{josaa_rounds}", "ranks_iits.csv"),
-            "NITs": os.path.join(cwd, "josaa", "2022", f"round_{josaa_rounds}", "ranks_nits.csv"),
-            "GFTIs": os.path.join(cwd, "josaa", "2022", f"round_{josaa_rounds}", "ranks_gftis.csv")
+            "ALL": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_all.csv"),
+            "IIITs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_iiits.csv"),
+            "IITs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_iits.csv"),
+            "NITs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_nits.csv"),
+            "GFTIs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_gftis.csv")
         }
         josaa_institue_types(CSV_FILES)
     elif type == "csab":
