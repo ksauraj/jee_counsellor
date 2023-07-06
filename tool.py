@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import platform
 import subprocess
 import pandas as pd
@@ -8,9 +9,19 @@ from colorama import init, Fore
 
 init()
 
+ascii_art = '''
+     ██╗███████╗███████╗     ██████╗ ██████╗ ██╗   ██╗███╗   ██╗███████╗███████╗██╗     ██╗      ██████╗ ██████╗ 
+     ██║██╔════╝██╔════╝    ██╔════╝██╔═══██╗██║   ██║████╗  ██║██╔════╝██╔════╝██║     ██║     ██╔═══██╗██╔══██╗
+     ██║█████╗  █████╗      ██║     ██║   ██║██║   ██║██╔██╗ ██║███████╗█████╗  ██║     ██║     ██║   ██║██████╔╝
+██   ██║██╔══╝  ██╔══╝      ██║     ██║   ██║██║   ██║██║╚██╗██║╚════██║██╔══╝  ██║     ██║     ██║   ██║██╔══██╗
+╚█████╔╝███████╗███████╗    ╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║███████║███████╗███████╗███████╗╚██████╔╝██║  ██║
+ ╚════╝ ╚══════╝╚══════╝     ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+                                                 - A command-line tool for JEE counselling assistance by Ksauraj.
+'''
 
 def pre_setup():
     os.system("cls" if os.name == "nt" else "clear")
+    print(Fore.GREEN + ascii_art)
     print(Fore.YELLOW + "Select Counseling type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
@@ -467,10 +478,17 @@ def main(df):
             Fore.GREEN +
             "Congratulations! File successfully opened in browser." +
             Fore.RESET)
-        print("")
+        time.sleep(3)
+        os.system("cls" if os.name == "nt" else "clear")
+        print(Fore.GREEN + ascii_art)
         choice = input(
-            f"Press Enter to continue or type {Fore.YELLOW}'exit'{Fore.RESET} to exit: ")
-        if choice.lower() == "exit":
+            f"{Fore.BLUE}1. {Fore.YELLOW}Go back to main menu.\n"
+            f"{Fore.BLUE}2. {Fore.YELLOW}Continue with same settings.\n"
+            f"{Fore.BLUE}3. {Fore.YELLOW}Exit from tool.\n"
+            f"{Fore.RESET}Select option (1-3): ")
+        if choice == "1":
+            pre_setup()
+        elif choice == "3":
             break
 
 
