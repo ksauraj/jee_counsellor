@@ -363,31 +363,12 @@ def display_df_web(df, heading, subheading):
     </html>
     '''
 
-
-
-
-
-
     # Save the HTML content to the file
     with open(filename, "w") as file:
         file.write(html_content)
 
     print(filename)
     # open the file in the default web browser
-
-    if platform.system() == "Windows":
-        subprocess.Popen(["start",
-                          filename],
-                         stdout=subprocess.DEVNULL,
-                         stderr=subprocess.DEVNULL,
-                         shell=True)
-    elif platform.system() == "Darwin":
-        subprocess.Popen(["open", filename],
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    else:
-        subprocess.Popen(["xdg-open", filename],
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
 
     if platform.system() == "Windows":
         subprocess.Popen(["start",
