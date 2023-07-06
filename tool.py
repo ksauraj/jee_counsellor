@@ -18,9 +18,10 @@ def pre_setup():
     if option == '1':
         josaa_rounds_year()
     elif option == '2':
-        csab_rounds()
-    else :
+        csab_rounds_year()
+    else:
         pre_setup()
+
 
 def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
@@ -34,6 +35,7 @@ def josaa_rounds_year():
         josaa_round_year = "2023"
     print(josaa_round_year)
     josaa_rounds(josaa_round_year)
+
 
 def josaa_rounds(josaa_round_year):
     os.system("cls" if os.name == "nt" else "clear")
@@ -57,14 +59,27 @@ def josaa_rounds(josaa_round_year):
     csv_files("josaa", selected_round, josaa_round_year)
 
 
+def csab_rounds_year():
+    os.system("cls" if os.name == "nt" else "clear")
+    print("Select CSAB round year")
+    print(Fore.GREEN + "1." + Fore.BLUE + "2021")
+    print(Fore.GREEN + "2." + Fore.BLUE + "2022" + Fore.RESET)
+    csab_round_year_sel = input("Select Option (1 to 2): ")
+    if csab_round_year_sel == "1":
+        csab_round_year = "2021"
+    elif csab_round_year_sel == "2":
+        csab_round_year = "2022"
+    print(csab_round_year)
+    csab_rounds(csab_round_year)
 
-def csab_rounds():
+
+def csab_rounds(csab_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print("Select CSAB round (2022)")
     print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
     print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
     csab_round = input(Fore.RESET + "Select Option (1 to 2) : ")
-    csv_files("csab", csab_round, "")
+    csv_files("csab", csab_round, csab_round_year)
 
 # define the path of csv files for different types of colleges
 
@@ -92,7 +107,7 @@ def csv_files(type, round, year):
         csv_path = os.path.join(
             cwd,
             "csab",
-            "2022",
+            f"{year}",
             f"round_{csab_rounds}",
             "ranks.csv")
         df = pd.read_csv(csv_path)
@@ -184,13 +199,16 @@ def josaa_institue_types(CSV_FILES):
     else:
         main(df)
 
+
 def filter_programs(institute_df):
     print("Note: Programs marked with '*' will display all the programs similar to them.")
     print("Select Program:")
     print(Fore.GREEN + "1." + Fore.BLUE + "All")
     print(Fore.GREEN + "2." + Fore.BLUE + "Computer Science and Engineering*")
-    print(Fore.GREEN + "3." + Fore.BLUE + "Artificial Intelligence and Data Science*")
-    print(Fore.GREEN + "4." + Fore.BLUE + "Electronics and Communication Engineering*")
+    print(Fore.GREEN + "3." + Fore.BLUE +
+          "Artificial Intelligence and Data Science*")
+    print(Fore.GREEN + "4." + Fore.BLUE +
+          "Electronics and Communication Engineering*")
     print(Fore.GREEN + "5." + Fore.BLUE + "Information Technology*")
     print(Fore.GREEN + "6." + Fore.BLUE + "Mechanical Engineering*")
     print(Fore.GREEN + "7." + Fore.BLUE + "Civil Engineering*")
@@ -227,7 +245,10 @@ def filter_programs(institute_df):
             '|'.join([program_choices.get(int(choice), '') for choice in program_choices_list]))]
 
     if len(filtered_df) == 0:
-        print(Fore.RED + "No programs found matching the selected options." + Fore.RESET)
+        print(
+            Fore.RED +
+            "No programs found matching the selected options." +
+            Fore.RESET)
         return filtered_df
 
     if '13' in program_choices_list:
@@ -246,7 +267,6 @@ def filter_programs(institute_df):
     return filtered_df
 
 
-
 def display_df_web(df, heading, subheading):
     output_dir = 'output'
     if not os.path.exists(output_dir):
@@ -259,7 +279,8 @@ def display_df_web(df, heading, subheading):
     # convert the DataFrame to an HTML table
     html_table = df.to_html(index=False, classes='table')
 
-    # Generate the complete HTML content with headings, CSS styles, and the table
+    # Generate the complete HTML content with headings, CSS styles, and the
+    # table
     html_content = f'''
     <!DOCTYPE html>
     <html>
