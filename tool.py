@@ -131,12 +131,11 @@ def csab_institue_types(df):
 
     # ask for user input for institute type
     print("Select Institute type:")
-    print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
+    print(Fore.GREEN + "1." + Fore.BLUE + "ALL")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
     print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
-    print(Fore.GREEN + "5." + Fore.BLUE + "IITs")
-    option = input(Fore.RESET + "Select Option (1 to 5): ")
+    option = input(Fore.RESET + "Select Option (1 to 4): ")
 
     # filter the dataframe based on the selected option
     if option == "1":
@@ -153,11 +152,6 @@ def csab_institue_types(df):
             'National Institute of Technology')]
         df = df[~df['Institute'].str.contains(
             'Indian Institute of Information Technology')]
-        df = df[~df['Institute'].str.contains(
-            'Indian Institute of Technology')]
-    elif option == "5":
-        df = df[df['Institute'].str.contains(
-            'Indian Institute of Technology')]
     else:
         print("Invalid option. Please select again.")
 
