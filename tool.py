@@ -422,48 +422,24 @@ def main(df):
 
         def filter_by_choices(choices, column_name):
             unique_choices = institute_df[column_name].unique()
-            num_choices = len(unique_choices)
-            start_index = 0
-            batch_size = 15
-            selected_choices = []
 
-            while start_index < num_choices:
-                os.system("cls" if os.name == "nt" else "clear")
-                print(f"Select {column_name} :")
-                print(Fore.GREEN + "1." + Fore.BLUE + " All")
-                end_index = start_index + batch_size
-                current_choices = unique_choices[start_index:end_index]
+            os.system("cls" if os.name == "nt" else "clear")
+            print(f"Select {column_name}:")
 
-                for i, choice in enumerate(
-                        current_choices, start=start_index + 2):
-                    print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
+            print(Fore.GREEN + "1." + Fore.BLUE +" All")
+            for i, choice in enumerate(unique_choices, start=2):
+                print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
-                if end_index < num_choices:
-                    print(f"{Fore.GREEN}{end_index+2}. Next {batch_size}")
+            choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
+            selected_choices = list(map(int, choices_input.split()))
 
-                if start_index > 0:
-                    print(f"{Fore.GREEN}{end_index+3}. Return to Last Page")
-
-                choices_input = input("Choose Options (space-separated, e.g., 1 2 3) : ")
-                if choices_input:
-                    selected_choices.extend(map(int, choices_input.split()))
-                
-                if end_index < num_choices:
-                    print(f"{Fore.GREEN}{end_index+4}. Done")
-
-                if start_index > 0:
-                    print(f"{Fore.GREEN}{end_index+5}. Return to Last Page")
-
-                if 1 in selected_choices:
-                    return filtered_df
-                else:
-                    selected_choices = [choice - 2 for choice in selected_choices]
-                    filtered_choices = [unique_choices[i] for i in selected_choices]
-                    return filtered_df[filtered_df[column_name].isin(filtered_choices)]
-                
+            if 1 in selected_choices:
                 return filtered_df
+            else:
+                selected_choices = [choice - 2 for choice in selected_choices]
+                filtered_choices = [unique_choices[i] for i in selected_choices]
+                return filtered_df[filtered_df[column_name].isin(filtered_choices)]
 
-        # Example usage
         filtered_df = filter_by_choices(institute_df["Institute"], "Institute")
         filtered_df = filter_by_choices(institute_df["Quota"], "Quota")
         filtered_df = filter_by_choices(institute_df["Seat Type"], "Seat Type")
