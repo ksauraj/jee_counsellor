@@ -14,7 +14,7 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
     - [Windows](#windows)
     - [Mac](#mac)
     - [Linux](#linux)
-  - [Cloning from the Source](#cloning-from-the-source)
+  - [Cloning from the Source (Recommended)](#cloning-from-the-source)
     - [Windows](#cloning-from-the-source--windows-)
     - [Mac](#cloning-from-the-source-linux--mac-)
     - [Linux](#cloning-from-the-source-linux--mac-)
@@ -28,6 +28,8 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
 ### Executable (Might be Slow)
 
 The JEE Counsellor tool is available as an executable for Windows, Mac, and Linux. Follow the instructions below to run the tool on your respective operating system.
+
+> **Note:** The provided installation method is only compatible with the x86_64 architecture. It will not work on other architectures.
 
 #### Windows
 
@@ -56,6 +58,8 @@ The JEE Counsellor tool is available as an executable for Windows, Mac, and Linu
 
 #### Mac
 
+> **Note:** The provided installation method is only compatible with the x86_64 architecture. It will not work on other architectures.
+
 - Download the `jcounsellor` executable file from the [latest release](https://github.com/ksauraj/jee_counsellor/releases).
 
 - Open the Terminal application.
@@ -76,6 +80,8 @@ The JEE Counsellor tool is available as an executable for Windows, Mac, and Linu
    ```
 
 #### Linux
+
+> **Note:** The provided installation method is only compatible with the x86_64 architecture. It will not work on other architectures.
 
 - Download the `jcounsellor` executable file from the [latest release](https://github.com/ksauraj/jee_counsellor/releases).
 
