@@ -36,7 +36,8 @@ def pre_setup():
 
 def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
-    print("Select JOSAA round year")
+    print(Fore.GREEN + ascii_art)
+    print(Fore.YELLOW + "Select JOSAA round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2022")
     print(Fore.GREEN + "2." + Fore.BLUE + "2023" + Fore.RESET)
     josaa_round_year_sel = input("Select Option (1 to 2): ")
@@ -50,7 +51,8 @@ def josaa_rounds_year():
 
 def josaa_rounds(josaa_round_year):
     os.system("cls" if os.name == "nt" else "clear")
-    print(Fore.YELLOW + "Select JOSAA round")
+    print(Fore.GREEN + ascii_art)
+    print("{Fore.YELLOW}Select JOSAA round {{josaa_round_year}}")
 
     menu_options = [
         "Round 1",
@@ -72,7 +74,8 @@ def josaa_rounds(josaa_round_year):
 
 def csab_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
-    print("Select CSAB round year")
+    print(Fore.GREEN + ascii_art)
+    print(Fore.YELLOW + "Select CSAB round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2021")
     print(Fore.GREEN + "2." + Fore.BLUE + "2022")
     print(Fore.GREEN + "3." + Fore.BLUE + "2023" + Fore.RESET)
@@ -89,7 +92,8 @@ def csab_rounds_year():
 
 def csab_rounds(csab_round_year):
     os.system("cls" if os.name == "nt" else "clear")
-    print("Select CSAB round (2022)")
+    print(Fore.GREEN + ascii_art)
+    print(f"{Fore.YELLOW}Select CSAB round ({csab_round_year})" )
     print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
     print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
     csab_round = input(Fore.RESET + "Select Option (1 to 2) : ")
@@ -131,9 +135,10 @@ def csv_files(type, round, year):
 def csab_institue_types(df):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
+    print(Fore.GREEN + ascii_art)
 
     # ask for user input for institute type
-    print("Select Institute type:")
+    print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
@@ -164,9 +169,10 @@ def csab_institue_types(df):
 def josaa_institue_types(CSV_FILES):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
+    print(Fore.GREEN + ascii_art)
 
     # ask for user input for institute type
-    print("Select Institute type:")
+    print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
@@ -209,6 +215,7 @@ def josaa_institue_types(CSV_FILES):
 
 
 def filter_programs(institute_df):
+    print(Fore.GREEN + ascii_art)
     print("Note: Programs marked with '*' will display all the programs similar to them.")
     print("Select Program:")
     print(Fore.GREEN + "1." + Fore.BLUE + "All")
@@ -424,12 +431,15 @@ def main(df):
             unique_choices = institute_df[column_name].unique()
 
             os.system("cls" if os.name == "nt" else "clear")
-            print(f"Select {column_name}:")
+            print(Fore.GREEN + ascii_art)
+            print(f"{Fore.YELLOW}Select {column_name}:")
 
             print(Fore.GREEN + "1." + Fore.BLUE +" All")
             for i, choice in enumerate(unique_choices, start=2):
                 print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
+            print(f"{Fore.YELLOW}")
+            print(f"You are Selecting {column_name}")
             choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
             selected_choices = list(map(int, choices_input.split()))
 
