@@ -18,6 +18,7 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
     - [Windows](#cloning-from-the-source--windows-)
     - [Mac](#cloning-from-the-source-linux--mac-)
     - [Linux](#cloning-from-the-source-linux--mac-)
+    - [Termux Instructions](#termux-instructions)
 - [Dependencies](#dependencies)
 - [Usage](#usage)
 - [License](#license)
@@ -180,6 +181,40 @@ pip install -r requirements.txt
 
 - Run the tool:
 
+```bash
+python tool.py
+```
+
+### Termux Instructions:
+
+- Clone the repository (if git isn't installed use `pkg install git`):
+```bash
+git clone https://github.com/ksauraj/jee_counsellor.git
+```
+
+- Navigate to the project directory:
+```bash
+cd jee_counsellor
+```
+- Install python if it isn't installed using:
+```bash
+pkg install -y python
+```
+- Sometimes `libexpat.so` is missing, so to avoid any issues later install it using:
+```bash
+pkg install libexpat
+```
+- Install `python-numpy` and `python-pandas` which is under `tur-repo`:
+```bash
+pkg install python-numpy
+pkg install tur-repo
+pkg install python-pandas
+```
+- Install the last dependency:
+```bash
+pip install colorama
+```
+- Now you can run the tool using:
 ```bash
 python tool.py
 ```
