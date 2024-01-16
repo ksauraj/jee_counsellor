@@ -19,20 +19,36 @@ ascii_art = '''
                                                  - A command-line tool for JEE counselling assistance by Ksauraj.
 '''
 
+author_name = "Ksauraj"
+version = "v2.0.2"
+
 def pre_setup():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
     print(Fore.YELLOW + "Select Counseling type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
-    option = input("Select Option (1 to 2) : ")
+    print(Fore.GREEN + "3." + Fore.BLUE + "About" + Fore.RESET)
+    option = input("Select Option (1 to 3) : ")
     if option == '1':
         josaa_rounds_year()
     elif option == '2':
         csab_rounds_year()
+    elif option == '3':
+        show_about_section()
     else:
         pre_setup()
 
+
+def show_about_section():
+    print(Fore.CYAN + "\nJEE Counselling Assistant - About\n" + Fore.RESET)
+    print(f"Version: {version}")
+    print(f"Author: {Fore.GREEN}{author_name}{Fore.RESET}")
+    print(f"Acknowledgements: {Fore.GREEN}{author_name}{Fore.RESET}")
+    print("Description: A tool to display colleges based on JEE Mains rank. Get personalized information based on your rank and make informed decisions.")
+    
+    input(Fore.YELLOW + "\nPress Enter to continue to the main menu..." + Fore.RESET)
+    pre_setup()
 
 def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
