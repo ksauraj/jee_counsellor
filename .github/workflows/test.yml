@@ -1,0 +1,46 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches:
+      - main  # Adjust the branch name as needed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8  # Adjust the Python version as needed
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # If you have a requirements file
+
+      - name: Run tests
+        run: python -m unittest discover -v
+
+  branch-protection:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Verify branch protection
+        run: |
+          # Add your branch protection checks here
+          # For example, checking if tests have passed
+          # This can be extended based on your needs
+
+          # Assuming the tests are in a folder named 'tests'
+          if ! python -m unittest discover -v tests; then
+            echo "Tests failed. Please fix before merging.";
+            exit 1;
+          fi
