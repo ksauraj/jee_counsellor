@@ -308,7 +308,7 @@ def display_df_web(df, heading, subheading):
         f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.html")
 
     # convert the DataFrame to an HTML table
-    html_table = df.to_html(index=False, classes='table')
+    html_table = df.to_html(index=False, classes='table',table_id="tableID")
 
     # Generate the complete HTML content with headings, CSS styles, and the
     # table
@@ -405,12 +405,23 @@ def display_df_web(df, heading, subheading):
         }}
         </style>
     </head>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.5.1.js"> 
+        </script>
+        <link rel="stylesheet"
+            href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"> 
+        <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"> 
+        </script>
     <body>
         <h1><a href="https://github.com/ksauraj/jee_counsellor">{heading}</a></h1>
         <h2><a href="https://sauraj.eu.org">{subheading}</a></h2>
         <div class="container">
             {html_table}
         </div>
+        <script> 
+
+          $(document).ready(function () {{ $('#tableID').DataTable({{ pageLength: 15  }}); }}); 
+        </script>
     </body>
     </html>
     '''
