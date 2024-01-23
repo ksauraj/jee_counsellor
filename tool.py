@@ -1,4 +1,5 @@
 import os
+import random
 import sys
 import time
 import platform
@@ -6,6 +7,9 @@ import subprocess
 import pandas as pd
 from datetime import datetime
 from colorama import init, Fore
+import http.server
+import socketserver
+import threading
 
 init()
 
@@ -21,6 +25,10 @@ ascii_art = '''
 
 author_name = "Ksauraj"
 version = "v2.0.2"
+
+class NoLogRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def log_request(self, code='-', size='-'):
+        pass
 
 def pre_setup():
     os.system("cls" if os.name == "nt" else "clear")
@@ -442,6 +450,24 @@ def display_df_web(df, heading, subheading):
     elif platform.system() == "Darwin":
         subprocess.Popen(["open", filename],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    elif "TERMUX_VERSION" in os.environ:
+        os.chdir("output")
+        PORT = random.randint(50000, 65535)
+        handler = NoLogRequestHandler
+        server = socketserver.ThreadingTCPServer(("", PORT), handler)
+        server_thread = threading.Thread(target=server.serve_forever)
+        server_thread.daemon = True
+        server_thread.start()
+
+        print(f"{Fore.GREEN} Web server started at http://localhost:{PORT} {Fore.RESET}")
+
+        try:
+            fileName = filename.split("/")[1]
+            os.system(f"termux-open http://localhost:{PORT}/{fileName}")
+            input("Press Enter to stop the server...\n")
+        finally:
+            print("Stopping web server...")
+            return
     else:
         subprocess.Popen(["xdg-open", filename],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -493,7 +519,7 @@ def main(df):
         display_df_web(filtered_df, "JEE Counsellor", "-By Ksauraj")
         print(
             Fore.GREEN +
-            "Congratulations! File successfully opened in browser." +
+            "Congratulations! File successfully opened in browser. Please wait......" +
             Fore.RESET)
         time.sleep(3)
         os.system("cls" if os.name == "nt" else "clear")
