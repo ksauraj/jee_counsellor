@@ -37,13 +37,17 @@ def pre_setup():
     print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
     print(Fore.GREEN + "3." + Fore.BLUE + "About" + Fore.RESET)
-    option = input("Select Option (1 to 3) : ")
+    print(Fore.GREEN + "4." + Fore.BLUE + "Exit" + Fore.RESET)  #adding exit function in main menu
+    option = input("Select Option (1 to 4) : ")                 #increasing last choice value
     if option == '1':
         josaa_rounds_year()
     elif option == '2':
         csab_rounds_year()
     elif option == '3':
         show_about_section()
+    elif option == '4':     #adding exit condition
+        print("Exiting...") #printing exiting
+        exit(0)             #calling exit function
     else:
         pre_setup()
 
