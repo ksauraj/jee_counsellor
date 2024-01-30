@@ -1,6 +1,6 @@
 name: Greetings
 
-on: [pull_request, issues, push]
+on: [pull_request, issues]
 
 jobs:
   greeting:
@@ -11,6 +11,6 @@ jobs:
     steps:
     - uses: actions/first-interaction@v1
       with:
-        repo-token: ${{ secrets.TOKEN }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: 'Hey, @${{ github.actor }} welcome to JEE Counsellor repository.🎊 Thank you so much for taking the time to point this out.🙌'
         pr-message: 'Hey, @${{ github.actor }} welcome to JEE Counsellor repository.🎊 Thank you so much for taking the effort to make our project better! 🙌 Keep making such awesome contributions!'
