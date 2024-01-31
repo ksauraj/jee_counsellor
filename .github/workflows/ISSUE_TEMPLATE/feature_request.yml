@@ -19,19 +19,6 @@ body:
       required: false
   - type: checkboxes
     id: no-duplicate-issues
-    attributes:
-      label: "Checklist"
-      options:
-        - label: "I have starred the repository"
-          required: true
-          
-        - label: "I have checked the existing issues"
-          required: true
-          
-        - label: "I have read the discussion tab thoroughly and got the project idea "
-          required: true
-
-        - label: "I am willing to work on this issue (optional)"
-          required: false
+    
 
         
