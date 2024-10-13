@@ -10,6 +10,7 @@ from colorama import init, Fore
 import http.server
 import socketserver
 import threading
+from tqdm import tqdm 
 
 init()
 
@@ -29,10 +30,24 @@ version = "v2.0.2"
 class NoLogRequestHandler(http.server.SimpleHTTPRequestHandler):
     def log_request(self, code='-', size='-'):
         pass
+def display_progress_bar(task_description, steps_completed, total=100, duration=3):
+    """
+    function which Displays a progress bar.
+    """
+    with tqdm(total=total, desc=task_description, ncols=100, colour='green') as pbar:
+        for _ in range(steps_completed):
+            time.sleep(duration / steps_completed)  # Control smoothness of progress
+            pbar.update(1)  # Increment the bar by 1 step
+
 
 def pre_setup():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    #progress bar for step-1
+    total=100
+    steps_completed= int(total*0.1)
+    display_progress_bar("STEP 1/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
     print(Fore.YELLOW + "Select Counseling type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
@@ -65,6 +80,11 @@ def show_about_section():
 def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    # progress bar of step 2
+    total=100
+    steps_completed= int(total*0.2)
+    display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
     print(Fore.YELLOW + "Select JOSAA round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2022")
     print(Fore.GREEN + "2." + Fore.BLUE + "2023" + Fore.RESET)
@@ -80,6 +100,10 @@ def josaa_rounds_year():
 def josaa_rounds(josaa_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    #progress bar for step-3
+    total=100
+    steps_completed= int(total*0.3)
+    display_progress_bar("STEP 3/10 ",steps_completed=steps_completed,total=total,duration=1.5)
     print("{Fore.YELLOW}Select JOSAA round {{josaa_round_year}}")
 
     menu_options = [
@@ -103,6 +127,11 @@ def josaa_rounds(josaa_round_year):
 def csab_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    #progress bar for step-2
+    total=100
+    steps_completed= int(total*0.2)
+    display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
     print(Fore.YELLOW + "Select CSAB round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2021")
     print(Fore.GREEN + "2." + Fore.BLUE + "2022")
@@ -121,6 +150,11 @@ def csab_rounds_year():
 def csab_rounds(csab_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    #progress bar for step-3
+    total=100
+    steps_completed= int(total*0.3)
+    display_progress_bar("STEP 3/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
     print(f"{Fore.YELLOW}Select CSAB round ({csab_round_year})" )
     print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
     print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
@@ -164,7 +198,10 @@ def csab_institue_types(df):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-
+    #progress bar for step-4
+    total=100
+    steps_completed= int(total*0.4)
+    display_progress_bar("STEP 4/10 ",steps_completed=steps_completed,total=total, duration=1.5)
     # ask for user input for institute type
     print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL")
@@ -198,7 +235,10 @@ def josaa_institue_types(CSV_FILES):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-
+    #progress bar for step-4
+    total=100
+    steps_completed= int(total*0.4)
+    display_progress_bar("STEP 4/10 ",steps_completed=steps_completed,total=total, duration=1.5)
     # ask for user input for institute type
     print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
@@ -243,7 +283,13 @@ def josaa_institue_types(CSV_FILES):
 
 
 def filter_programs(institute_df):
+    os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    #progress bar for step-5
+    total=100
+    steps_completed= int(total*0.5)
+    display_progress_bar("STEP 5/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
     print("Note: Programs marked with '*' will display all the programs similar to them.")
     print("Select Program:")
     print(Fore.GREEN + "1." + Fore.BLUE + "All")
@@ -441,6 +487,11 @@ def display_df_web(df, heading, subheading):
     # Save the HTML content to the file
     with open(filename, "w") as file:
         file.write(html_content)
+    #progress bar for step-10
+    total=100
+    steps_completed= int(total*1.0)
+    display_progress_bar("STEP 10/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
 
     print(filename)
     # open the file in the default web browser
@@ -508,9 +559,33 @@ def main(df):
                 return filtered_df[filtered_df[column_name].isin(filtered_choices)]
 
         filtered_df = filter_by_choices(institute_df["Institute"], "Institute")
+        os.system("cls" if os.name == "nt" else "clear")
+        print(Fore.GREEN + ascii_art)
+        total=100
+        steps_completed= int(total*0.6)
+        display_progress_bar("STEP 6/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
         filtered_df = filter_by_choices(institute_df["Quota"], "Quota")
+        os.system("cls" if os.name == "nt" else "clear")
+        print(Fore.GREEN + ascii_art)
+        total=100
+        steps_completed= int(total*0.7)
+        display_progress_bar("STEP 7/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
         filtered_df = filter_by_choices(institute_df["Seat Type"], "Seat Type")
+        os.system("cls" if os.name == "nt" else "clear")
+        print(Fore.GREEN + ascii_art)
+        total=100
+        steps_completed= int(total*0.8)
+        display_progress_bar("STEP 8/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
         filtered_df = filter_by_choices(institute_df["Gender"], "Gender")
+        os.system("cls" if os.name == "nt" else "clear")
+        print(Fore.GREEN + ascii_art)
+        total=100
+        steps_completed= int(total*0.9)
+        display_progress_bar("STEP 9/10 ",steps_completed=steps_completed,total=total, duration=1.5)
+
 
         os.system("cls" if os.name == "nt" else "clear")
         rank = int(input(Fore.YELLOW + "Enter your rank: " + Fore.RESET))
