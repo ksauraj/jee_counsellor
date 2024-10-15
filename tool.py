@@ -578,7 +578,7 @@ def display_df_web(df, heading, subheading):
     </a>
     
     </a><a href="https://www.linkedin.com/in/sauraj-kumar-singh-807295226" target="_blank">
-        <img src="../assets/linkedin.png" alt="LinkedIn Icon" class="linkedin-icon">
+        <img src="../s/linkedin.png" alt="LinkedIn Icon" class="linkedin-icon">
     </a>
 </div>
 
