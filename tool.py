@@ -565,20 +565,20 @@ def display_df_web(df, heading, subheading):
         <!-- Icon container -->
         <div class="icon-container">
      <a href="https://github.com/ksauraj/jee_counsellor" target="_blank">
-        <img src="../asset/fork.png" alt="Fork repo Icon">
+        <img src="../assets/fork.png" alt="Fork repo Icon">
     </a>
     <a href="https://github.com/ksauraj" target="_blank">
-        <img src="../asset/github.png" alt="GitHub Icon" class="github-icon">
+        <img src="../assets/github.png" alt="GitHub Icon" class="github-icon">
     </a>
     <a href="https://sauraj.eu.org/#/" target="_blank">
-        <img src="../asset/profile.jpg" alt="Profile Icon">
+        <img src="../assets/profile.jpg" alt="Profile Icon">
     </a>
     <a href="https://x.com/ksauraj" target="_blank">
-        <img src="../asset/Xlogo.png" alt="Xlogo Icon">
+        <img src="../assets/Xlogo.png" alt="Xlogo Icon">
     </a>
     
     </a><a href="https://www.linkedin.com/in/sauraj-kumar-singh-807295226" target="_blank">
-        <img src="../asset/linkedin.png" alt="LinkedIn Icon" class="linkedin-icon">
+        <img src="../assets/linkedin.png" alt="LinkedIn Icon" class="linkedin-icon">
     </a>
 </div>
 

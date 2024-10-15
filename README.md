@@ -241,7 +241,7 @@ pip install -r requirements.txt
 - Enter your rank to view the closing ranks and related information.
 - The tool will display the results in a browser window.
 
-https://github.com/ksauraj/jee_counsellor/assets/81681419/bd35882d-601d-40a2-a2a2-9b6e47e21f34
+https://github.com/ksauraj/jee_counsellor/assetss/81681419/bd35882d-601d-40a2-a2a2-9b6e47e21f34
 
 ## License
 
