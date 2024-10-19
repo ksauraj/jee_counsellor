@@ -34,7 +34,7 @@ def display_progress_bar(task_description, steps_completed, total=100, duration=
     """
     function which Displays a progress bar.
     """
-    with tqdm(total=total, desc=task_description, ncols=100, colour='green') as pbar:
+    with tqdm(total=total, desc=task_description, ncols=100, colour='green',bar_format='{l_bar}{bar} | {n_fmt}/{total_fmt}') as pbar:
         for _ in range(steps_completed):
             time.sleep(duration / steps_completed)  # Control smoothness of progress
             pbar.update(1)  # Increment the bar by 1 step
