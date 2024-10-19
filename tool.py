@@ -625,12 +625,11 @@ def display_df_web(df, heading, subheading):
     
     </a><a href="https://www.linkedin.com/in/sauraj-kumar-singh-807295226" target="_blank">
         <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn Icon" class="linkedin-icon">
+
     </a>
 </div>
 
     </div>
-
-
 
     <!-- Table container -->
     <div class="container">
