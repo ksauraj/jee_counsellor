@@ -452,8 +452,8 @@ def display_df_web(df, heading, subheading):
 
 .icon-container img.github-icon,
 .icon-container img.linkedin-icon {{
-    height: 38px; 
-    width: 35px;
+    height: 30px; 
+    width: 28px;
     border-radius: 100%; 
 }}
 
@@ -611,26 +611,25 @@ def display_df_web(df, heading, subheading):
         <!-- Icon container -->
         <div class="icon-container">
      <a href="https://github.com/ksauraj/jee_counsellor" target="_blank">
-        <img src="../assets/fork.png" alt="Fork repo Icon">
+        <img src="https://img.icons8.com/?size=100&id=38388&format=png&color=000000" alt="Fork repo Icon">
     </a>
     <a href="https://github.com/ksauraj" target="_blank">
-        <img src="../assets/github.png" alt="GitHub Icon" class="github-icon">
+        <img src="https://img.icons8.com/?size=100&id=62856&format=png&color=000000" alt="GitHub Icon" class="github-icon">
     </a>
     <a href="https://sauraj.eu.org/#/" target="_blank">
-        <img src="../assets/profile.jpg" alt="Profile Icon">
+        <img src="https://github.com/user-attachments/assets/6a1740ee-3492-4bd6-932b-3c7b15f0d254" alt="Profile Icon">
     </a>
     <a href="https://x.com/ksauraj" target="_blank">
-        <img src="../assets/Xlogo.png" alt="Xlogo Icon">
+        <img src="https://img.icons8.com/?size=100&id=111056&format=png&color=000000" alt="Xlogo Icon">
     </a>
     
     </a><a href="https://www.linkedin.com/in/sauraj-kumar-singh-807295226" target="_blank">
-        <img src="../assets/linkedin.png" alt="LinkedIn Icon" class="linkedin-icon">
+        <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn Icon" class="linkedin-icon">
+
     </a>
 </div>
 
     </div>
-
-
 
     <!-- Table container -->
     <div class="container">
