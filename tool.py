@@ -46,7 +46,7 @@ def delete_output_directory():
     """Offers an option to delete the output directory if the user selects the appropriate menu option."""
     output_dir = 'output'
     if os.path.exists(output_dir):
-        print(f"{Fore.RED}Warning: This will delete all contents in the 'output' directory.")
+        print(f"{Fore.MAGENTA}Warning: This will delete all contents in the 'output' directory.")
         user_input = input(f"{Fore.YELLOW}Press 1 to confirm deletion, or any other key to cancel: {Fore.RESET}")
         
         if user_input == '1':
@@ -74,8 +74,9 @@ def pre_setup():
     print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
     print(Fore.GREEN + "3." + Fore.BLUE + "About" + Fore.RESET)
-    print(Fore.GREEN + "4." + Fore.BLUE + "Exit" + Fore.RESET)  #adding exit function in main menu
-    print(Fore.GREEN + "5." + Fore.RED + "Clean Output Directory" + Fore.RESET)  # Added option to clean the output directory
+    print(Fore.GREEN + "4." + Fore.BLUE + "Clean Output Directory" + Fore.RESET)  # Added option to clean the output directory
+    print(Fore.GREEN + "5." + Fore.BLUE + "Exit" + Fore.RESET)  #adding exit function in main menu
+   
     option = input("Select Option (1 to 5) : ")                 #increasing last choice value
     if option == '1':
         josaa_rounds_year()
@@ -83,11 +84,12 @@ def pre_setup():
         csab_rounds_year()
     elif option == '3':
         show_about_section()
-    elif option == '4':     #adding exit condition
+    elif option=='4':
+        delete_output_directory()
+    elif option == '5':     #adding exit condition
         print("Exiting...") #printing exiting
         exit(0)             #calling exit function
-    elif option=='5':
-        delete_output_directory()
+    
     else:
         pre_setup()
 
