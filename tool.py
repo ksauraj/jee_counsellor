@@ -135,14 +135,17 @@ def csab_rounds_year():
     print(Fore.YELLOW + "Select CSAB round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2021")
     print(Fore.GREEN + "2." + Fore.BLUE + "2022")
-    print(Fore.GREEN + "3." + Fore.BLUE + "2023" + Fore.RESET)
-    csab_round_year_sel = input("Select Option (1 to 2): ")
+    print(Fore.GREEN + "3." + Fore.BLUE + "2023")
+    print(Fore.GREEN + "4." + Fore.BLUE + "2024" + Fore.RESET)
+    csab_round_year_sel = input("Select Option (1 to 4): ")
     if csab_round_year_sel == "1":
         csab_round_year = "2021"
     elif csab_round_year_sel == "2":
         csab_round_year = "2022"
     elif csab_round_year_sel == "3":
         csab_round_year = "2023"
+    elif csab_round_year_sel == "4":
+        csab_round_year = "2024"
     print(csab_round_year)
     csab_rounds(csab_round_year)
 
