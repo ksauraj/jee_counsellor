@@ -641,7 +641,7 @@ def display_df_web(df, heading, subheading):
 
     <script> 
     $(document).ready(function () {{ 
-        $('#tableID').DataTable({{ pageLength: 20 }}); }});
+        $('#tableID').DataTable({{ pageLength: 20, ordering: false, }}); }});
          
         document.addEventListener("DOMContentLoaded", function() {{
         function typeText(text, elementId, speed) {{
@@ -789,7 +789,6 @@ def main(df):
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
         display_df_web(filtered_df, "JEE COUNSELLOR", "~By Ksauraj")
-
         print(
             Fore.GREEN +
             "Congratulations! File successfully opened in browser. Please wait......" +
