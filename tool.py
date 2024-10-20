@@ -87,12 +87,15 @@ def josaa_rounds_year():
 
     print(Fore.YELLOW + "Select JOSAA round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2022")
-    print(Fore.GREEN + "2." + Fore.BLUE + "2023" + Fore.RESET)
-    josaa_round_year_sel = input("Select Option (1 to 2): ")
+    print(Fore.GREEN + "2." + Fore.BLUE + "2023")
+    print(Fore.GREEN + "3." + Fore.BLUE + "2024" + Fore.RESET)
+    josaa_round_year_sel = input("Select Option (1 to 3): ")
     if josaa_round_year_sel == "1":
         josaa_round_year = "2022"
     elif josaa_round_year_sel == "2":
         josaa_round_year = "2023"
+    elif josaa_round_year_sel == "3":
+        josaa_round_year = "2024"
     print(josaa_round_year)
     josaa_rounds(josaa_round_year)
 
@@ -105,23 +108,36 @@ def josaa_rounds(josaa_round_year):
     steps_completed= int(total*0.2)
     display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total,duration=0.3)
     print("{Fore.YELLOW}Select JOSAA round {{josaa_round_year}}")
-
-    menu_options = [
-        "Round 1",
-        "Round 2",
-        "Round 3",
-        "Round 4",
-        "Round 5",
-        "Round 6"
-    ]
+    if josaa_round_year == "2024":
+        menu_options = [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4",
+            "Round 5"
+        ]
+    else:
+        menu_options = [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4",
+            "Round 5",
+            "Round 6"
+        ]
 
     for i, option in enumerate(menu_options, start=1):
         print(f"{Fore.GREEN}{i}. {Fore.RESET}{Fore.BLUE}{option}" + Fore.RESET)
-
-    selected_round = input("Select Option (1 to 6): ")
-    if int(selected_round) > 6:
-        return josaa_rounds()
-    csv_files("josaa", selected_round, josaa_round_year)
+    if josaa_round_year == "2024":
+        selected_round = input("Select Option (1 to 5): ")
+        if int(selected_round) > 5:
+            return josaa_rounds()
+        csv_files("josaa", selected_round, josaa_round_year)
+    else:
+        selected_round = input("Select Option (1 to 6): ")
+        if int(selected_round) > 6:
+            return josaa_rounds()
+        csv_files("josaa", selected_round, josaa_round_year)
 
 
 def csab_rounds_year():
