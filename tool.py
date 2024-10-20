@@ -43,12 +43,11 @@ def display_progress_bar(task_description, steps_completed, total=100, duration=
 
 
 def delete_output_directory():
-    """Offers an option to delete the output directory if it exists."""
+    """Offers an option to delete the output directory if the user selects the appropriate menu option."""
     output_dir = 'output'
     if os.path.exists(output_dir):
-        print(f"{Fore.RED}Output directory exists. Do you want to delete it?")
-        user_input = input(f"{Fore.YELLOW}Press 1 to delete, or any other key to skip: {Fore.RESET}")
-        
+        print(f"{Fore.RED}Warning: This will delete all contents in the 'output' directory.")
+        user_input = input(f"{Fore.YELLOW}Press 1 to confirm deletion, or any other key to cancel: {Fore.RESET}")
         
         if user_input == '1':
             shutil.rmtree(output_dir)  # Delete the directory and all its contents
@@ -56,13 +55,12 @@ def delete_output_directory():
         else:
             print(f"{Fore.YELLOW}Output directory was not deleted.{Fore.RESET}")
         time.sleep(1)
+    else:
+        print(f"{Fore.YELLOW}Output directory does not exist.{Fore.RESET}")
+        time.sleep(1)
     
 
 def pre_setup():
-  
-    os.system("cls" if os.name == "nt" else "clear")
-    print(Fore.GREEN + ascii_art)
-    delete_output_directory()
     #progress bar for loading tool...
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
@@ -76,7 +74,8 @@ def pre_setup():
     print(Fore.GREEN + "2." + Fore.BLUE + "CSAB" + Fore.RESET)
     print(Fore.GREEN + "3." + Fore.BLUE + "About" + Fore.RESET)
     print(Fore.GREEN + "4." + Fore.BLUE + "Exit" + Fore.RESET)  #adding exit function in main menu
-    option = input("Select Option (1 to 4) : ")                 #increasing last choice value
+    print(Fore.GREEN + "5." + Fore.RED + "Clean Output Directory" + Fore.RESET)  # Added option to clean the output directory
+    option = input("Select Option (1 to 5) : ")                 #increasing last choice value
     if option == '1':
         josaa_rounds_year()
     elif option == '2':
@@ -86,6 +85,8 @@ def pre_setup():
     elif option == '4':     #adding exit condition
         print("Exiting...") #printing exiting
         exit(0)             #calling exit function
+    elif option=='5':
+        delete_output_directory()
     else:
         pre_setup()
 
