@@ -11,6 +11,7 @@ import http.server
 import socketserver
 import threading
 from tqdm import tqdm 
+import shutil
 
 init()
 
@@ -40,13 +41,35 @@ def display_progress_bar(task_description, steps_completed, total=100, duration=
             pbar.update(1)  # Increment the bar by 1 step
 
 
+
+def delete_output_directory():
+    """Offers an option to delete the output directory if it exists."""
+    output_dir = 'output'
+    if os.path.exists(output_dir):
+        print(f"{Fore.RED}Output directory exists. Do you want to delete it?")
+        user_input = input(f"{Fore.YELLOW}Press 1 to delete, or any other key to skip: {Fore.RESET}")
+        
+        
+        if user_input == '1':
+            shutil.rmtree(output_dir)  # Delete the directory and all its contents
+            print(f"{Fore.GREEN}Output directory deleted successfully.{Fore.RESET}")
+        else:
+            print(f"{Fore.YELLOW}Output directory was not deleted.{Fore.RESET}")
+        time.sleep(1)
+    
+
 def pre_setup():
+  
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
+    delete_output_directory()
     #progress bar for loading tool...
+    os.system("cls" if os.name == "nt" else "clear")
+    print(Fore.GREEN + ascii_art)
     total=100
     steps_completed= int(total*1.0)
     display_progress_bar("Loadiing Tool...",steps_completed=steps_completed,total=total, duration=0.3)
+    
 
     print(Fore.YELLOW + "Select Counseling type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "JOSAA")
