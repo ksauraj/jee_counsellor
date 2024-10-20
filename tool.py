@@ -54,10 +54,11 @@ def delete_output_directory():
             print(f"{Fore.GREEN}Output directory deleted successfully.{Fore.RESET}")
         else:
             print(f"{Fore.YELLOW}Output directory was not deleted.{Fore.RESET}")
-        time.sleep(1)
+       
     else:
         print(f"{Fore.YELLOW}Output directory does not exist.{Fore.RESET}")
-        time.sleep(1)
+    time.sleep(1)
+    pre_setup()
     
 
 def pre_setup():
