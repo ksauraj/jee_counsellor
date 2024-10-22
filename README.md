@@ -143,14 +143,16 @@ Before cloning the repository and running the tool, ensure that you have the fol
      ```bash
      cd jee_counsellor
      ```
-- Create a Virtual Environment:                                                                                  
-   ```bash
-    python -m venv myenv
-    ```
-- Activating the virtual environment:
-    ```bash
-     myenv\Scripts\activate
-    ```
+- Create a Virtual Environment:
+   - creating a virtual environment to avoid conflict with os distribution package manager:                                                                                 
+       ```bash
+        python -m venv myenv
+       ```
+- Activate the virtual environment:
+  -  Activating that venv in the directory:
+      ```bash
+       myenv\Scripts\activate
+       ```
               
 - Install the dependencies:
    - Install the required dependencies using the following command:
@@ -180,14 +182,16 @@ git clone https://github.com/ksauraj/jee_counsellor.git
 ```bash
 cd jee_counsellor
 ```
-- Create a Virtual Environment:                                                                                  
-   ```bash
-     python -m venv myenv
-    ```
-- Activating the virtual environment:
-    ```bash
-     source myenv/bin/activate
-    ```
+- Create a Virtual Environment:
+                                                                                  
+ ```bash
+  python -m venv myenv
+  ```
+- Activate the virtual environment:
+  
+ ```bash
+  source myenv/bin/activate
+  ```
 - Install the dependencies:
 
 ```bash
