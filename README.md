@@ -267,11 +267,21 @@ pip install -r requirements.txt
 
 ## Usage
 
-- Launch the tool by following the installation instructions.
-- Select the counseling type (JOSAA or CSAB) and the respective round.
-- Choose the institute type and program(s) you are interested in.
-- Enter your rank to view the closing ranks and related information.
-- The tool will display the results in a browser window.
+After successfully installing the tool, follow these steps to run it:
+
+1.  **Launch the tool** from your terminal:
+    - If installed from source: `python tool.py`
+    - If using the executable: `./jcounsellor` (for Linux/Mac) or double-click the `.exe` (for Windows).
+
+2.  **Follow the on-screen prompts:**
+    - Select the counselling year.
+    - Choose the counselling type (e.g., JOSAA or CSAB).
+    - Select the round number.
+    - Choose the institute type (e.g., IIT, NIT).
+    - Select the program(s) you are interested in.
+    - Enter your rank and category.
+
+3.  **View the results:** The tool will process your query and automatically open the results in a new tab in your default web browser.
 
 https://github.com/ksauraj/jee_counsellor/assets/81681419/bd35882d-601d-40a2-a2a2-9b6e47e21f34
 
