@@ -29,8 +29,9 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
     - [Termux Instructions](#termux-instructions)
 - [Dependencies](#dependencies)
 - [Usage](#usage)
+- [Contributing](#contributing)
 - [License](#license)
-- [Credit](#credit)
+- [Credit & Acknowledgements](#credit--acknowledgements)
 
 
 ## Installation
