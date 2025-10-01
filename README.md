@@ -112,8 +112,12 @@ The JEE Counsellor tool is available as an executable for Windows, Mac, and Linu
    ./jcounsellor
    ```
 
-## Cloning from the Source
-By opting for this installation method, you gain the advantage of a dynamic and adaptable setup, ensuring access to the most recent code updates and the opportunity to actively participate in the project's advancement and enhancement.
+## Cloning from the Source (Recommended)
+
+This is the **recommended** installation method. While it requires a few more steps (installing Python and Git), it offers several key advantages:
+- **Faster Execution:** The script runs directly using your system's Python interpreter, which is significantly faster than the packaged executable.
+- **Latest Updates:** You get access to the most recent code changes and bug fixes instantly.
+- **Contribution Ready:** This setup allows you to easily contribute to the project's development.
 
 ### Cloning from the Source ( Windows )
 
