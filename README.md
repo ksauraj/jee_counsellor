@@ -290,5 +290,8 @@ https://github.com/ksauraj/jee_counsellor/assets/81681419/bd35882d-601d-40a2-a2a
 This project is licensed under the GNU General Public License v3.0. For more details, see the LICENSe file.
 
 
-## Credit
+
+## Credit & Acknowledgements
 - **This project has been developed by** [Ksauraj](https://github.com/ksauraj).
+If you found this tool helpful, please consider ⭐ starring the repository. It helps a lot!
+
