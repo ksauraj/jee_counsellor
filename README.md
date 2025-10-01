@@ -262,6 +262,12 @@ pip install -r requirements.txt
 
 https://github.com/ksauraj/jee_counsellor/assets/81681419/bd35882d-601d-40a2-a2a2-9b6e47e21f34
 
+## Contributing
+- Fork the repo
+- Create a feature branch
+- Commit your changes
+- Open a Pull Request
+
 ## License
 
 This project is licensed under the GNU General Public License v3.0. For more details, see the LICENSe file.
