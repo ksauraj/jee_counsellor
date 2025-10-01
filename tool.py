@@ -158,12 +158,12 @@ def josaa_rounds(josaa_round_year):
     if josaa_round_year == "2024":
         selected_round = input("Select Option (1 to 5): ")
         if int(selected_round) > 5:
-            return josaa_rounds()
+            return josaa_rounds(josaa_round_year)
         csv_files("josaa", selected_round, josaa_round_year)
     else:
         selected_round = input("Select Option (1 to 6): ")
         if int(selected_round) > 6:
-            return josaa_rounds()
+            return josaa_rounds(josaa_round_year)
         csv_files("josaa", selected_round, josaa_round_year)
 
 
