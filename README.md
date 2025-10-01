@@ -7,6 +7,14 @@ A command-line tool for JEE counselling assistance.
 
 JEE Counsellor is a Python-based tool designed to assist with the counselling process for JEE (Joint Entrance Examination). It provides information about different rounds of counselling, institutes, programs, and closing ranks based on user input. This tool aims to simplify the decision-making process for JEE aspirants by providing relevant data.
 
+## Features
+
+- **Dual Counselling Support:** Get data for both JOSAA and CSAB counselling rounds.
+- **Comprehensive Filters:** Filter results by institute type (IIT, NIT, IIIT, GFTI), specific institutes, and programs.
+- **Rank-Based Analysis:** Input your rank to see relevant closing ranks and college options.
+- **User-Friendly Interface:** A simple and interactive command-line interface for easy navigation.
+- **Cross-Platform:** Run the tool on Windows, macOS, Linux, and even Termux on Android.
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -23,6 +31,7 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
 - [Usage](#usage)
 - [License](#license)
 - [Credit](#credit)
+
 
 ## Installation
 
@@ -103,8 +112,12 @@ The JEE Counsellor tool is available as an executable for Windows, Mac, and Linu
    ./jcounsellor
    ```
 
-## Cloning from the Source
-By opting for this installation method, you gain the advantage of a dynamic and adaptable setup, ensuring access to the most recent code updates and the opportunity to actively participate in the project's advancement and enhancement.
+## Cloning from the Source (Recommended)
+
+This is the **recommended** installation method. While it requires a few more steps (installing Python and Git), it offers several key advantages:
+- **Faster Execution:** The script runs directly using your system's Python interpreter, which is significantly faster than the packaged executable.
+- **Latest Updates:** You get access to the most recent code changes and bug fixes instantly.
+- **Contribution Ready:** This setup allows you to easily contribute to the project's development.
 
 ### Cloning from the Source ( Windows )
 
@@ -254,11 +267,21 @@ pip install -r requirements.txt
 
 ## Usage
 
-- Launch the tool by following the installation instructions.
-- Select the counseling type (JOSAA or CSAB) and the respective round.
-- Choose the institute type and program(s) you are interested in.
-- Enter your rank to view the closing ranks and related information.
-- The tool will display the results in a browser window.
+After successfully installing the tool, follow these steps to run it:
+
+1.  **Launch the tool** from your terminal:
+    - If installed from source: `python tool.py`
+    - If using the executable: `./jcounsellor` (for Linux/Mac) or double-click the `.exe` (for Windows).
+
+2.  **Follow the on-screen prompts:**
+    - Select the counselling year.
+    - Choose the counselling type (e.g., JOSAA or CSAB).
+    - Select the round number.
+    - Choose the institute type (e.g., IIT, NIT).
+    - Select the program(s) you are interested in.
+    - Enter your rank and category.
+
+3.  **View the results:** The tool will process your query and automatically open the results in a new tab in your default web browser.
 
 https://github.com/ksauraj/jee_counsellor/assets/81681419/bd35882d-601d-40a2-a2a2-9b6e47e21f34
 
