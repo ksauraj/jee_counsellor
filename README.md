@@ -7,6 +7,14 @@ A command-line tool for JEE counselling assistance.
 
 JEE Counsellor is a Python-based tool designed to assist with the counselling process for JEE (Joint Entrance Examination). It provides information about different rounds of counselling, institutes, programs, and closing ranks based on user input. This tool aims to simplify the decision-making process for JEE aspirants by providing relevant data.
 
+## Features
+
+- **Dual Counselling Support:** Get data for both JOSAA and CSAB counselling rounds.
+- **Comprehensive Filters:** Filter results by institute type (IIT, NIT, IIIT, GFTI), specific institutes, and programs.
+- **Rank-Based Analysis:** Input your rank to see relevant closing ranks and college options.
+- **User-Friendly Interface:** A simple and interactive command-line interface for easy navigation.
+- **Cross-Platform:** Run the tool on Windows, macOS, Linux, and even Termux on Android.
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -23,6 +31,7 @@ JEE Counsellor is a Python-based tool designed to assist with the counselling pr
 - [Usage](#usage)
 - [License](#license)
 - [Credit](#credit)
+
 
 ## Installation
 
