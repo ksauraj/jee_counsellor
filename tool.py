@@ -822,16 +822,14 @@ def display_df_web(df, heading, subheading, applied_filters=None):
     else:
         subprocess.Popen(["xdg-open", filename],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
 def main(df, applied_filters):
     while True:
         current_run_filters = applied_filters.copy()
-        
         institute_df = df
         os.system("cls" if os.name == "nt" else "clear")
-        
         filtered_df = filter_programs(institute_df, current_run_filters)
 
+        # CHANGE: Restored pagination logic within this function
         def filter_by_choices(df, column_name, steps, current_filters):
             unique_choices = list(df[column_name].unique())
 
@@ -844,48 +842,91 @@ def main(df, applied_filters):
             str_steps = f"STEP {steps_count}/10"
             display_progress_bar(str_steps, steps_completed=steps_completed, total=total, duration=0.3)
 
-            print(f"{Fore.YELLOW}Select {column_name}:")
-            print(Fore.GREEN + "1." + Fore.BLUE + " All")
-            
-            # This logic can be simplified, but for now let's just capture the selection
-            # For simplicity, this example assumes the non-paginated flow. The pagination logic would need similar modifications.
-            for i, choice in enumerate(unique_choices, start=2):
-                print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
+            # CHANGE: Start of the conditional pagination logic
+            if column_name == "Institute" and len(unique_choices) > 25:
+                page_size = 25
+                total_pages = (len(unique_choices) + page_size - 1) // page_size
+                current_page = 1
 
-            print(f"{Fore.YELLOW}")
-            print(f"You are Selecting {column_name}")
-            choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
-            
-            try:
-                selected_choices_indices = list(map(int, choices_input.split()))
-            except ValueError:
-                print(Fore.RED + "Invalid input. Defaulting to 'All'." + Fore.RESET)
-                selected_choices_indices = [1]
-                time.sleep(1)
+                while True:
+                    start = (current_page - 1) * page_size
+                    end = start + page_size
+                    page_choices = unique_choices[start:end]
 
+                    os.system("cls" if os.name == "nt" else "clear")
+                    print(Fore.GREEN + ascii_art)
+                    print(f"{Fore.YELLOW}Select {column_name} (Page {current_page}/{total_pages}):")
+                    print(Fore.GREEN + "1." + Fore.BLUE + " All")
+                    for i, choice in enumerate(page_choices, start=2):
+                        print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
-            if 1 in selected_choices_indices:
-                current_filters[column_name] = "All"
-                return df
+                    print("\nOptions: [N]ext Page | [P]rev Page | Enter Numbers (e.g., 2 3) | [Q]uit selection")
+                    user_input = input("Enter choice: ").strip().lower()
+
+                    if user_input == 'n' and current_page < total_pages:
+                        current_page += 1
+                        continue
+                    elif user_input == 'p' and current_page > 1:
+                        current_page -= 1
+                        continue
+                    elif user_input == 'q':
+                        # Defaulting to all if user quits selection
+                        current_filters[column_name] = "All"
+                        return df
+                    else:
+                        try:
+                            selected_choices_indices = list(map(int, user_input.split()))
+                            if 1 in selected_choices_indices:
+                                current_filters[column_name] = "All"
+                                return df
+                            else:
+                                # Adjust indices for the current page
+                                selected_indices = [idx - 2 for idx in selected_choices_indices]
+                                selected = [page_choices[i] for i in selected_indices if 0 <= i < len(page_choices)]
+                                
+                                if not selected: # Handle invalid number entry
+                                    print(Fore.RED + "Invalid number(s). Please try again." + Fore.RESET)
+                                    time.sleep(1)
+                                    continue
+
+                                current_filters[column_name] = ", ".join(selected)
+                                return df[df[column_name].isin(selected)]
+                        except ValueError:
+                            print(Fore.RED + "Invalid input, please use numbers or navigation keys (n, p, q)." + Fore.RESET)
+                            time.sleep(1)
+                            continue
             else:
-                # Convert user choices (e.g., 2, 3) to list indices (0, 1)
-                selected_indices = [idx - 2 for idx in selected_choices_indices]
-                # Get the actual choice names from the unique_choices list
-                filtered_choice_names = [unique_choices[i] for i in selected_indices if 0 <= i < len(unique_choices)]
-                
-                # Update the filters dictionary with a comma-separated string of choices
-                current_filters[column_name] = ", ".join(filtered_choice_names)
-                
-                # Return the filtered dataframe
-                return df[df[column_name].isin(filtered_choice_names)]
+                # CHANGE: This is the non-paginated flow for Quota, Gender, etc.
+                print(f"{Fore.YELLOW}Select {column_name}:")
+                print(Fore.GREEN + "1." + Fore.BLUE + " All")
+                for i, choice in enumerate(unique_choices, start=2):
+                    print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
+                print(f"{Fore.YELLOW}")
+                print(f"You are Selecting {column_name}")
+                choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
+                
+                try:
+                    selected_choices_indices = list(map(int, choices_input.split()))
+                except ValueError:
+                    print(Fore.RED + "Invalid input. Defaulting to 'All'." + Fore.RESET)
+                    selected_choices_indices = [1]
+                    time.sleep(1)
+
+                if 1 in selected_choices_indices:
+                    current_filters[column_name] = "All"
+                    return df
+                else:
+                    selected_indices = [idx - 2 for idx in selected_choices_indices]
+                    filtered_choice_names = [unique_choices[i] for i in selected_indices if 0 <= i < len(unique_choices)]
+                    current_filters[column_name] = ", ".join(filtered_choice_names)
+                    return df[df[column_name].isin(filtered_choice_names)]
         
         filtered_df = filter_by_choices(filtered_df, "Institute", 0.5, current_run_filters)
         filtered_df = filter_by_choices(filtered_df, "Quota", 0.6, current_run_filters)
         filtered_df = filter_by_choices(filtered_df, "Seat Type", 0.7, current_run_filters)
         filtered_df = filter_by_choices(filtered_df, "Gender", 0.8, current_run_filters)
         
-
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
         display_progress_bar("STEP 9/10 ",steps_completed=90,total=100, duration=0.3)
@@ -900,20 +941,15 @@ def main(df, applied_filters):
         
         current_run_filters["Your Rank (Show colleges with closing rank >)"] = rank
 
-        filtered_df["Closing Rank"] = filtered_df["Closing Rank"].astype(
-            str).str.extract(r"(\d+)").astype(int)
-        filtered_df = filtered_df[filtered_df["Closing Rank"] > rank].sort_values(
-            by=["Closing Rank"], ascending=True)
+        filtered_df["Closing Rank"] = filtered_df["Closing Rank"].astype(str).str.extract(r"(\d+)").astype(int)
+        filtered_df = filtered_df[filtered_df["Closing Rank"] > rank].sort_values(by=["Closing Rank"], ascending=True)
 
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
         
         display_df_web(filtered_df, "JEE COUNSELLOR", "~By Ksauraj", applied_filters=current_run_filters)
 
-        print(
-            Fore.GREEN +
-            "Congratulations! File successfully opened in browser. Please wait......" +
-            Fore.RESET)
+        print(Fore.GREEN + "Congratulations! File successfully opened in browser. Please wait......" + Fore.RESET)
         time.sleep(3)
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
@@ -927,6 +963,4 @@ def main(df, applied_filters):
         elif choice == "3":
             break
 
-
-# run the main function
 pre_setup()
