@@ -10,9 +10,8 @@ from colorama import init, Fore
 import http.server
 import socketserver
 import threading
-from tqdm import tqdm
+from tqdm import tqdm 
 import shutil
-import math
 
 init()
 
@@ -108,45 +107,34 @@ def show_about_section():
 def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-
     # progress bar of step 1
-    total = 100
-    steps_completed = int(total * 0.1)
-    display_progress_bar("STEP 1/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+    total=100
+    steps_completed= int(total*0.1)
+    display_progress_bar("STEP 1/10 ",steps_completed=steps_completed,total=total, duration=0.3)
 
-    applied_filters = {"Counseling Type": "JOSAA"}
-
-    josaa_round_year = None  # initialize
     print(Fore.YELLOW + "Select JOSAA round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2022")
     print(Fore.GREEN + "2." + Fore.BLUE + "2023")
     print(Fore.GREEN + "3." + Fore.BLUE + "2024" + Fore.RESET)
-    while josaa_round_year is None:
-        josaa_round_year_sel = input("Select Option (1 to 3): ").strip()
+    josaa_round_year_sel = input("Select Option (1 to 3): ")
+    if josaa_round_year_sel == "1":
+        josaa_round_year = "2022"
+    elif josaa_round_year_sel == "2":
+        josaa_round_year = "2023"
+    elif josaa_round_year_sel == "3":
+        josaa_round_year = "2024"
+    print(josaa_round_year)
+    josaa_rounds(josaa_round_year)
 
-        if josaa_round_year_sel == "1":
-            josaa_round_year = "2022"
-        elif josaa_round_year_sel == "2":
-            josaa_round_year = "2023"
-        elif josaa_round_year_sel == "3":
-            josaa_round_year = "2024"
-        else:
-            print(Fore.RED + "Invalid input! Please select a number between 1 and 3." + Fore.RESET)
 
-    applied_filters["Year"] = josaa_round_year
-    josaa_rounds(josaa_round_year, applied_filters)
-
-def josaa_rounds(josaa_round_year, applied_filters):
+def josaa_rounds(josaa_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    
-    # progress bar for step-2
-    total = 100
-    steps_completed = int(total * 0.2)
-    display_progress_bar("STEP 2/10 ", steps_completed=steps_completed, total=total, duration=0.3)
-    
+    #progress bar for step-2
+    total=100
+    steps_completed= int(total*0.2)
+    display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total,duration=0.3)
     print(f"{Fore.YELLOW}Select JOSAA round ({josaa_round_year}){Fore.RESET}")
-
     if josaa_round_year == "2024":
         menu_options = [
             "Round 1",
@@ -155,7 +143,6 @@ def josaa_rounds(josaa_round_year, applied_filters):
             "Round 4",
             "Round 5"
         ]
-        max_option = 5
     else:
         menu_options = [
             "Round 1",
@@ -165,82 +152,65 @@ def josaa_rounds(josaa_round_year, applied_filters):
             "Round 5",
             "Round 6"
         ]
-        max_option = 6
 
     for i, option in enumerate(menu_options, start=1):
         print(f"{Fore.GREEN}{i}. {Fore.RESET}{Fore.BLUE}{option}" + Fore.RESET)
+    if josaa_round_year == "2024":
+        selected_round = input("Select Option (1 to 5): ")
+        if int(selected_round) > 5:
+            return josaa_rounds(josaa_round_year)
+        csv_files("josaa", selected_round, josaa_round_year)
+    else:
+        selected_round = input("Select Option (1 to 6): ")
+        if int(selected_round) > 6:
+            return josaa_rounds(josaa_round_year)
+        csv_files("josaa", selected_round, josaa_round_year)
 
-    selected_round = None
-    while selected_round is None:
-        user_input = input(f"Select Option (1 to {max_option}): ").strip()
-        if user_input.isdigit() and 1 <= int(user_input) <= max_option:
-            selected_round = user_input
-        else:
-            print(Fore.RED + f"Invalid input! Please select a number between 1 and {max_option}." + Fore.RESET)
 
-    applied_filters["Round"] = selected_round
-    csv_files("josaa", selected_round, josaa_round_year, applied_filters)
-    
 def csab_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-
-    # progress bar for step-1
-    total = 100
-    steps_completed = int(total * 0.1)
-    display_progress_bar("STEP 1/10 ", steps_completed=steps_completed, total=total, duration=0.3)
-    
-    applied_filters = {"Counseling Type": "CSAB"}
-    csab_round_year = None  # initialize
+    #progress bar for step-1
+    total=100
+    steps_completed= int(total*0.1)
+    display_progress_bar("STEP 1/10 ",steps_completed=steps_completed,total=total, duration=0.3)
 
     print(Fore.YELLOW + "Select CSAB round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2021")
     print(Fore.GREEN + "2." + Fore.BLUE + "2022")
     print(Fore.GREEN + "3." + Fore.BLUE + "2023")
     print(Fore.GREEN + "4." + Fore.BLUE + "2024" + Fore.RESET)
-    while csab_round_year is None:
+    csab_round_year_sel = input("Select Option (1 to 4): ")
+    if csab_round_year_sel == "1":
+        csab_round_year = "2021"
+    elif csab_round_year_sel == "2":
+        csab_round_year = "2022"
+    elif csab_round_year_sel == "3":
+        csab_round_year = "2023"
+    elif csab_round_year_sel == "4":
+        csab_round_year = "2024"
+    print(csab_round_year)
+    csab_rounds(csab_round_year)
 
-        csab_round_year_sel = input("Select Option (1 to 4): ").strip()
 
-        if csab_round_year_sel == "1":
-            csab_round_year = "2021"
-        elif csab_round_year_sel == "2":
-            csab_round_year = "2022"
-        elif csab_round_year_sel == "3":
-            csab_round_year = "2023"
-        elif csab_round_year_sel == "4":
-            csab_round_year = "2024"
-        else:
-            print(Fore.RED + "Invalid input! Please select a number between 1 and 4." + Fore.RESET)
-
-    applied_filters["Year"] = csab_round_year
-    csab_rounds(csab_round_year, applied_filters)
-
-def csab_rounds(csab_round_year, applied_filters):
+def csab_rounds(csab_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    # progress bar for step-2
-    total = 100
-    steps_completed = int(total * 0.2)
-    display_progress_bar("STEP 2/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+    #progress bar for step-2
+    total=100
+    steps_completed= int(total*0.2)
+    display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total, duration=0.3)
 
-    print(f"{Fore.YELLOW}Select CSAB round ({csab_round_year})")
+    print(f"{Fore.YELLOW}Select CSAB round ({csab_round_year})" )
     print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
     print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
+    csab_round = input(Fore.RESET + "Select Option (1 to 2) : ")
+    csv_files("csab", csab_round, csab_round_year)
 
-    csab_round = None
-    while csab_round is None:
-        user_input = input(Fore.RESET + "Select Option (1 to 2): ").strip()
-        if user_input in ["1", "2"]:
-            csab_round = user_input
-        else:
-            print(Fore.RED + "Invalid input! Please select 1 or 2." + Fore.RESET)
-
-    applied_filters["Round"] = csab_round
-    csv_files("csab", csab_round, csab_round_year, applied_filters)
+# define the path of csv files for different types of colleges
 
 
-def csv_files(type, round, year, applied_filters):
+def csv_files(type, round, year):
     # Get path to the temporary folder created by PyInstaller
     if getattr(sys, 'frozen', False):
         # If the script is running in a PyInstaller bundle
@@ -257,7 +227,7 @@ def csv_files(type, round, year, applied_filters):
             "NITs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_nits.csv"),
             "GFTIs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_gftis.csv")
         }
-        josaa_institute_types(CSV_FILES, applied_filters)
+        josaa_institue_types(CSV_FILES)
     elif type == "csab":
         csab_rounds = round
         csv_path = os.path.join(
@@ -267,108 +237,98 @@ def csv_files(type, round, year, applied_filters):
             f"round_{csab_rounds}",
             "ranks.csv")
         df = pd.read_csv(csv_path)
-        csab_institute_types(df, applied_filters)
+        csab_institue_types(df)
 
-def csab_institute_types(df, applied_filters):
+
+def csab_institue_types(df):
+    # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-
-    # progress bar for step-3
-    total = 100
-    steps_completed = int(total * 0.3)
-    display_progress_bar("STEP 3/10 ", steps_completed=steps_completed, total=total, duration=0.3)
-
+    #progress bar for step-3
+    total=100
+    steps_completed= int(total*0.3)
+    display_progress_bar("STEP 3/10 ",steps_completed=steps_completed,total=total, duration=0.3)
+    # ask for user input for institute type
     print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
     print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
-    # loop until valid input
-    option = None
-    institute_type_name = ""
-    while option is None:
-
-        user_input = input(Fore.RESET + "Select Option (1 to 4): ").strip()
-        if user_input in ["1", "2", "3", "4"]:
-            option = user_input
-        else:
-            print(Fore.RED + "Invalid option! Please select a number between 1 and 4." + Fore.RESET)
+    option = input(Fore.RESET + "Select Option (1 to 4): ")
 
     # filter the dataframe based on the selected option
     if option == "1":
-        df = df[~df['Institute'].str.contains('Indian Institute of Technology')]
-        institute_type_name = "ALL (IIITs, NITs, GFTIs)"
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Technology')]
     elif option == "2":
-        df = df[df['Institute'].str.contains('Indian Institute of Information Technology')]
-        institute_type_name = "IIITs"
+        df = df[df['Institute'].str.contains(
+            'Indian Institute of Information Technology')]
     elif option == "3":
-        df = df[df['Institute'].str.contains('National Institute of Technology')]
-        institute_type_name = "NITs"
+        df = df[df['Institute'].str.contains(
+            'National Institute of Technology')]
     elif option == "4":
-        df = df[~df['Institute'].str.contains('National Institute of Technology')]
-        df = df[~df['Institute'].str.contains('Indian Institute of Information Technology')]
-        institute_type_name = "GFTIs"
-    
-    applied_filters["Institute Type"] = institute_type_name
-    main(df, applied_filters)
+        df = df[~df['Institute'].str.contains(
+            'National Institute of Technology')]
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Information Technology')]
+    else:
+        print("Invalid option. Please select again.")
 
-def josaa_institute_types(CSV_FILES, applied_filters):
+    main(df)
+
+
+def josaa_institue_types(CSV_FILES):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-
-    # progress bar for step-3
-    total = 100
-    steps_completed = int(total * 0.3)
-    display_progress_bar("STEP 3/10 ", steps_completed=steps_completed, total=total, duration=0.3)
-
+    #progress bar for step-3
+    total=100
+    steps_completed= int(total*0.3)
+    display_progress_bar("STEP 3/10 ",steps_completed=steps_completed,total=total, duration=0.3)
+    # ask for user input for institute type
     print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
     print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
     print(Fore.GREEN + "5." + Fore.BLUE + "IITs")
-    # loop until valid input
-    college_type = None
-    option = None
-    while option is None:
+    option = input(Fore.RESET + "Select Option (1 to 5): ")
 
-        user_input = input(Fore.RESET + "Select Option (1 to 5): ").strip()
-        if user_input in ["1", "2", "3", "4", "5"]:
-            option = user_input
-            if option == "1":
-                college_type = "ALL"
-            elif option == "2":
-                college_type = "IIITs"
-            elif option == "3":
-                college_type = "NITs"
-            elif option == "4":
-                college_type = "GFTIs"
-            elif option == "5":
-                college_type = "IITs"
-        else:
-            print(Fore.RED + "Invalid option! Please select a number between 1 and 5." + Fore.RESET)
+    # filter the dataframe based on the selected option
+    if option == "1":
+        college_type = "ALL"
+    elif option == "2":
+        college_type = "IIITs"
+    elif option == "3":
+        college_type = "NITs"
+    elif option == "4":
+        college_type = "GFTIs"
+    elif option == "5":
+        college_type = "IITs"
+    else:
+        print("Invalid option. Please select again.")
+        josaa_institue_types
 
-    applied_filters["Institute Type"] = college_type
-    
     # read the csv file based on the selected college type
     csv_path = CSV_FILES[college_type]
     df = pd.read_csv(csv_path)
-
     if option == "1":
-        # Remove all IITs occurrence if "ALL" option was chosen
-        df = df[~df['Institute'].str.contains('Indian Institute of Technology')]
-        main(df, applied_filters) 
+        # Remove all IITs occurance if "ALL" option was choosed.
+        df = df[~df['Institute'].str.contains(
+            'Indian Institute of Technology')]
+        main(df)
     elif option == "5":
-        # fix ranks with strings in them
-        df['Closing Rank'] = df['Closing Rank'].str.extract(r'(\d+)').astype(float)
-        df['Opening Rank'] = df['Opening Rank'].str.extract(r'(\d+)').astype(int)
-        main(df, applied_filters) 
+        # fix ranks with strings in it.
+        df['Closing Rank'] = df['Closing Rank'].str.extract(
+            r'(\d+)').astype(float)
+        df['Opening Rank'] = df['Opening Rank'].str.extract(
+            r'(\d+)').astype(int)
+        main(df)
     else:
-        main(df, applied_filters) 
+        main(df)
 
 
-def filter_programs(institute_df, current_filters):
+def filter_programs(institute_df):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
     #progress bar for step-4
@@ -396,7 +356,7 @@ def filter_programs(institute_df, current_filters):
     print("")
 
     program_choices = {
-        1: 'All',
+        1: '',
         2: 'Computer Science and Engineering',
         3: 'Artificial Intelligence and Data Science',
         4: 'Electronics and Communication Engineering',
@@ -414,24 +374,10 @@ def filter_programs(institute_df, current_filters):
     program_choices_list = program_input.split()
 
     filtered_df = institute_df
-    
-    selected_program_names = []
 
-    if '1' in program_choices_list:
-        selected_program_names.append("All")
-    else:
-        # Build a list of selected program names
-        for choice in program_choices_list:
-            if choice.isdigit() and int(choice) in program_choices:
-                selected_program_names.append(program_choices[int(choice)])
-        
-        # Filter the dataframe
-        if selected_program_names:
-             filtered_df = institute_df[institute_df["Academic Program Name"].str.contains(
-                '|'.join(selected_program_names))]
-    
-    current_filters["Program"] = ", ".join(selected_program_names)
-
+    if '1' not in program_choices_list:
+        filtered_df = institute_df[institute_df["Academic Program Name"].str.contains(
+            '|'.join([program_choices.get(int(choice), '') for choice in program_choices_list]))]
 
     if len(filtered_df) == 0:
         print(
@@ -440,7 +386,6 @@ def filter_programs(institute_df, current_filters):
             Fore.RESET)
         return filtered_df
 
-    # This part for page 2 can be simplified or adjusted as needed
     if '13' in program_choices_list:
         os.system("cls" if os.name == "nt" else "clear")
         programs = filtered_df["Academic Program Name"].unique()
@@ -450,14 +395,14 @@ def filter_programs(institute_df, current_filters):
         if program_choice >= 14 and program_choice < 14 + len(programs):
             program = programs[program_choice - 14]
             filtered_df = filtered_df[filtered_df["Academic Program Name"] == program]
-            current_filters["Program"] = program # Update with the specific choice
         else:
             print(Fore.RED + "Invalid choice. Please try again." + Fore.RESET)
             return filtered_df
 
     return filtered_df
 
-def display_df_web(df, heading, subheading, applied_filters=None):
+
+def display_df_web(df, heading, subheading):
     output_dir = 'output'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -468,15 +413,6 @@ def display_df_web(df, heading, subheading, applied_filters=None):
 
     # convert the DataFrame to an HTML table
     html_table = df.to_html(index=False, classes='table',table_id="tableID")
-    
-    # Prepare the filters section as HTML
-    filters_html = ""
-    if applied_filters:
-        filters_html += "<div style='margin-bottom: 20px; font-size: 16px; text-align: left;'>"
-        filters_html += "<h3>Applied Filters:</h3><ul>"
-        for key, value in applied_filters.items():
-            filters_html += f"<li><b>{key}</b>: {value}</li>"
-        filters_html += "</ul></div>"
 
     # Generate the complete HTML content with headings, CSS styles, and the
     # table
@@ -701,6 +637,7 @@ def display_df_web(df, heading, subheading, applied_filters=None):
 }}
     </style>
 
+    <!-- Importing the custom fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Qwitcher+Grypen:wght@400;700&display=swap" rel="stylesheet">
@@ -711,11 +648,13 @@ def display_df_web(df, heading, subheading, applied_filters=None):
 </head>
 <body>
 
+    <!-- Title bar section -->
     <div class="title-bar">
         <h1><a>{ heading }</a></h1>
         <h2><a>{ subheading }</a></h2>
         <div class="typing-text" id="typing-text"></div>
 
+        <!-- Icon container -->
         <div class="icon-container">
      <a href="https://github.com/ksauraj/jee_counsellor" target="_blank">
         <img src="https://img.icons8.com/?size=100&id=38388&format=png&color=000000" alt="Fork repo Icon">
@@ -737,7 +676,8 @@ def display_df_web(df, heading, subheading, applied_filters=None):
 </div>
 
     </div>
-    {filters_html}
+
+    <!-- Table container -->
     <div class="container">
         { html_table }
     </div>
@@ -780,8 +720,13 @@ def display_df_web(df, heading, subheading, applied_filters=None):
 
 
 '''
+
+
+
+   
+
     # Save the HTML content to the file
-    with open(filename, "w", encoding='utf-8') as file: 
+    with open(filename, "w") as file:
         file.write(html_content)
     #progress bar for step-10
     total=100
@@ -822,134 +767,75 @@ def display_df_web(df, heading, subheading, applied_filters=None):
     else:
         subprocess.Popen(["xdg-open", filename],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-def main(df, applied_filters):
+
+
+# main function to run the CLI tool
+def main(df):
     while True:
-        current_run_filters = applied_filters.copy()
         institute_df = df
         os.system("cls" if os.name == "nt" else "clear")
-        filtered_df = filter_programs(institute_df, current_run_filters)
+        filtered_df = filter_programs(institute_df)
 
-        # CHANGE: Restored pagination logic within this function
-        def filter_by_choices(df, column_name, steps, current_filters):
-            unique_choices = list(df[column_name].unique())
+        def filter_by_choices(choices, column_name, steps):
+            unique_choices = institute_df[column_name].unique()
 
             os.system("cls" if os.name == "nt" else "clear")
             print(Fore.GREEN + ascii_art)
             
-            total = 100
-            steps_completed = int(total * steps)
-            steps_count = int(steps * 10)
-            str_steps = f"STEP {steps_count}/10"
-            display_progress_bar(str_steps, steps_completed=steps_completed, total=total, duration=0.3)
+            total=100
+            steps_completed=int(total*steps)
+            steps_count = int(steps*10)
+            str_steps=f"STEP {steps_count}/10"
+            display_progress_bar(str_steps,steps_completed=steps_completed,total=total, duration=0.3)
 
-            # CHANGE: Start of the conditional pagination logic
-            if column_name == "Institute" and len(unique_choices) > 25:
-                page_size = 25
-                total_pages = (len(unique_choices) + page_size - 1) // page_size
-                current_page = 1
+           
+            print(f"{Fore.YELLOW}Select {column_name}:")
 
-                while True:
-                    start = (current_page - 1) * page_size
-                    end = start + page_size
-                    page_choices = unique_choices[start:end]
+            print(Fore.GREEN + "1." + Fore.BLUE +" All")
+            for i, choice in enumerate(unique_choices, start=2):
+                print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
-                    os.system("cls" if os.name == "nt" else "clear")
-                    print(Fore.GREEN + ascii_art)
-                    print(f"{Fore.YELLOW}Select {column_name} (Page {current_page}/{total_pages}):")
-                    print(Fore.GREEN + "1." + Fore.BLUE + " All")
-                    for i, choice in enumerate(page_choices, start=2):
-                        print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
-                    print("\nOptions: [N]ext Page | [P]rev Page | Enter Numbers (e.g., 2 3) | [Q]uit selection")
-                    user_input = input("Enter choice: ").strip().lower()
 
-                    if user_input == 'n' and current_page < total_pages:
-                        current_page += 1
-                        continue
-                    elif user_input == 'p' and current_page > 1:
-                        current_page -= 1
-                        continue
-                    elif user_input == 'q':
-                        # Defaulting to all if user quits selection
-                        current_filters[column_name] = "All"
-                        return df
-                    else:
-                        try:
-                            selected_choices_indices = list(map(int, user_input.split()))
-                            if 1 in selected_choices_indices:
-                                current_filters[column_name] = "All"
-                                return df
-                            else:
-                                # Adjust indices for the current page
-                                selected_indices = [idx - 2 for idx in selected_choices_indices]
-                                selected = [page_choices[i] for i in selected_indices if 0 <= i < len(page_choices)]
-                                
-                                if not selected: # Handle invalid number entry
-                                    print(Fore.RED + "Invalid number(s). Please try again." + Fore.RESET)
-                                    time.sleep(1)
-                                    continue
+            print(f"{Fore.YELLOW}")
+            print(f"You are Selecting {column_name}")
+            choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
+            selected_choices = list(map(int, choices_input.split()))
 
-                                current_filters[column_name] = ", ".join(selected)
-                                return df[df[column_name].isin(selected)]
-                        except ValueError:
-                            print(Fore.RED + "Invalid input, please use numbers or navigation keys (n, p, q)." + Fore.RESET)
-                            time.sleep(1)
-                            continue
+            if 1 in selected_choices:
+                return filtered_df
             else:
-                # CHANGE: This is the non-paginated flow for Quota, Gender, etc.
-                print(f"{Fore.YELLOW}Select {column_name}:")
-                print(Fore.GREEN + "1." + Fore.BLUE + " All")
-                for i, choice in enumerate(unique_choices, start=2):
-                    print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
+                selected_choices = [choice - 2 for choice in selected_choices]
+                filtered_choices = [unique_choices[i] for i in selected_choices]
+                return filtered_df[filtered_df[column_name].isin(filtered_choices)]
 
-                print(f"{Fore.YELLOW}")
-                print(f"You are Selecting {column_name}")
-                choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
-                
-                try:
-                    selected_choices_indices = list(map(int, choices_input.split()))
-                except ValueError:
-                    print(Fore.RED + "Invalid input. Defaulting to 'All'." + Fore.RESET)
-                    selected_choices_indices = [1]
-                    time.sleep(1)
+        filtered_df = filter_by_choices(institute_df["Institute"], "Institute",0.5)
+        
+        filtered_df = filter_by_choices(institute_df["Quota"], "Quota",0.6)
+        
+        filtered_df = filter_by_choices(institute_df["Seat Type"], "Seat Type",0.7)
+       
+       
+        filtered_df = filter_by_choices(institute_df["Gender"], "Gender",0.8)
+       
+        
 
-                if 1 in selected_choices_indices:
-                    current_filters[column_name] = "All"
-                    return df
-                else:
-                    selected_indices = [idx - 2 for idx in selected_choices_indices]
-                    filtered_choice_names = [unique_choices[i] for i in selected_indices if 0 <= i < len(unique_choices)]
-                    current_filters[column_name] = ", ".join(filtered_choice_names)
-                    return df[df[column_name].isin(filtered_choice_names)]
-        
-        filtered_df = filter_by_choices(filtered_df, "Institute", 0.5, current_run_filters)
-        filtered_df = filter_by_choices(filtered_df, "Quota", 0.6, current_run_filters)
-        filtered_df = filter_by_choices(filtered_df, "Seat Type", 0.7, current_run_filters)
-        filtered_df = filter_by_choices(filtered_df, "Gender", 0.8, current_run_filters)
-        
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
         display_progress_bar("STEP 9/10 ",steps_completed=90,total=100, duration=0.3)
-        rank = 0
-        while True:
-            try:
-                rank_input = input(Fore.YELLOW + "Enter your rank: " + Fore.RESET)
-                rank = int(rank_input)
-                break
-            except ValueError:
-                print(Fore.RED + "Invalid rank. Please enter a number." + Fore.RESET)
-        
-        current_run_filters["Your Rank (Show colleges with closing rank >)"] = rank
-
-        filtered_df["Closing Rank"] = filtered_df["Closing Rank"].astype(str).str.extract(r"(\d+)").astype(int)
-        filtered_df = filtered_df[filtered_df["Closing Rank"] > rank].sort_values(by=["Closing Rank"], ascending=True)
+        rank = int(input(Fore.YELLOW + "Enter your rank: " + Fore.RESET))
+        filtered_df["Closing Rank"] = filtered_df["Closing Rank"].astype(
+            str).str.extract(r"(\d+)").astype(int)
+        filtered_df = filtered_df[filtered_df["Closing Rank"] > rank].sort_values(
+            by=["Closing Rank"], ascending=True)
 
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
-        
-        display_df_web(filtered_df, "JEE COUNSELLOR", "~By Ksauraj", applied_filters=current_run_filters)
-
-        print(Fore.GREEN + "Congratulations! File successfully opened in browser. Please wait......" + Fore.RESET)
+        display_df_web(filtered_df, "JEE COUNSELLOR", "~By Ksauraj")
+        print(
+            Fore.GREEN +
+            "Congratulations! File successfully opened in browser. Please wait......" +
+            Fore.RESET)
         time.sleep(3)
         os.system("cls" if os.name == "nt" else "clear")
         print(Fore.GREEN + ascii_art)
@@ -963,4 +849,6 @@ def main(df, applied_filters):
         elif choice == "3":
             break
 
+
+# run the main function
 pre_setup()
