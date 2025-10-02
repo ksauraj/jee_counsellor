@@ -108,34 +108,43 @@ def show_about_section():
 def josaa_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    # progress bar of step 1
-    total=100
-    steps_completed= int(total*0.1)
-    display_progress_bar("STEP 1/10 ",steps_completed=steps_completed,total=total, duration=0.3)
 
+    # progress bar of step 1
+    total = 100
+    steps_completed = int(total * 0.1)
+    display_progress_bar("STEP 1/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+
+    josaa_round_year = None  # initialize
     print(Fore.YELLOW + "Select JOSAA round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2022")
     print(Fore.GREEN + "2." + Fore.BLUE + "2023")
     print(Fore.GREEN + "3." + Fore.BLUE + "2024" + Fore.RESET)
-    josaa_round_year_sel = input("Select Option (1 to 3): ")
-    if josaa_round_year_sel == "1":
-        josaa_round_year = "2022"
-    elif josaa_round_year_sel == "2":
-        josaa_round_year = "2023"
-    elif josaa_round_year_sel == "3":
-        josaa_round_year = "2024"
+    while josaa_round_year is None:
+        josaa_round_year_sel = input("Select Option (1 to 3): ").strip()
+
+        if josaa_round_year_sel == "1":
+            josaa_round_year = "2022"
+        elif josaa_round_year_sel == "2":
+            josaa_round_year = "2023"
+        elif josaa_round_year_sel == "3":
+            josaa_round_year = "2024"
+        else:
+            print(Fore.RED + "Invalid input! Please select a number between 1 and 3." + Fore.RESET)
+
     print(josaa_round_year)
     josaa_rounds(josaa_round_year)
-
 
 def josaa_rounds(josaa_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    #progress bar for step-2
-    total=100
-    steps_completed= int(total*0.2)
-    display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total,duration=0.3)
+    
+    # progress bar for step-2
+    total = 100
+    steps_completed = int(total * 0.2)
+    display_progress_bar("STEP 2/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+    
     print(f"{Fore.YELLOW}Select JOSAA round ({josaa_round_year}){Fore.RESET}")
+
     if josaa_round_year == "2024":
         menu_options = [
             "Round 1",
@@ -144,6 +153,7 @@ def josaa_rounds(josaa_round_year):
             "Round 4",
             "Round 5"
         ]
+        max_option = 5
     else:
         menu_options = [
             "Round 1",
@@ -153,64 +163,79 @@ def josaa_rounds(josaa_round_year):
             "Round 5",
             "Round 6"
         ]
+        max_option = 6
 
     for i, option in enumerate(menu_options, start=1):
         print(f"{Fore.GREEN}{i}. {Fore.RESET}{Fore.BLUE}{option}" + Fore.RESET)
-    if josaa_round_year == "2024":
-        selected_round = input("Select Option (1 to 5): ")
-        if int(selected_round) > 5:
-            return josaa_rounds(josaa_round_year)
-        csv_files("josaa", selected_round, josaa_round_year)
-    else:
-        selected_round = input("Select Option (1 to 6): ")
-        if int(selected_round) > 6:
-            return josaa_rounds(josaa_round_year)
-        csv_files("josaa", selected_round, josaa_round_year)
 
+    selected_round = None
+    while selected_round is None:
+        user_input = input(f"Select Option (1 to {max_option}): ").strip()
+        if user_input.isdigit() and 1 <= int(user_input) <= max_option:
+            selected_round = user_input
+        else:
+            print(Fore.RED + f"Invalid input! Please select a number between 1 and {max_option}." + Fore.RESET)
 
+    csv_files("josaa", selected_round, josaa_round_year)
+    
 def csab_rounds_year():
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    #progress bar for step-1
-    total=100
-    steps_completed= int(total*0.1)
-    display_progress_bar("STEP 1/10 ",steps_completed=steps_completed,total=total, duration=0.3)
+
+    # progress bar for step-1
+    total = 100
+    steps_completed = int(total * 0.1)
+    display_progress_bar("STEP 1/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+
+    csab_round_year = None  # initialize
 
     print(Fore.YELLOW + "Select CSAB round year")
     print(Fore.GREEN + "1." + Fore.BLUE + "2021")
     print(Fore.GREEN + "2." + Fore.BLUE + "2022")
     print(Fore.GREEN + "3." + Fore.BLUE + "2023")
     print(Fore.GREEN + "4." + Fore.BLUE + "2024" + Fore.RESET)
-    csab_round_year_sel = input("Select Option (1 to 4): ")
-    if csab_round_year_sel == "1":
-        csab_round_year = "2021"
-    elif csab_round_year_sel == "2":
-        csab_round_year = "2022"
-    elif csab_round_year_sel == "3":
-        csab_round_year = "2023"
-    elif csab_round_year_sel == "4":
-        csab_round_year = "2024"
+    while csab_round_year is None:
+
+        csab_round_year_sel = input("Select Option (1 to 4): ").strip()
+
+        if csab_round_year_sel == "1":
+            csab_round_year = "2021"
+        elif csab_round_year_sel == "2":
+            csab_round_year = "2022"
+        elif csab_round_year_sel == "3":
+            csab_round_year = "2023"
+        elif csab_round_year_sel == "4":
+            csab_round_year = "2024"
+        else:
+            print(Fore.RED + "Invalid input! Please select a number between 1 and 4." + Fore.RESET)
+
     print(csab_round_year)
     csab_rounds(csab_round_year)
-
 
 def csab_rounds(csab_round_year):
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    #progress bar for step-2
-    total=100
-    steps_completed= int(total*0.2)
-    display_progress_bar("STEP 2/10 ",steps_completed=steps_completed,total=total, duration=0.3)
+    # progress bar for step-2
+    total = 100
+    steps_completed = int(total * 0.2)
+    display_progress_bar("STEP 2/10 ", steps_completed=steps_completed, total=total, duration=0.3)
 
-    print(f"{Fore.YELLOW}Select CSAB round ({csab_round_year})" )
+    print(f"{Fore.YELLOW}Select CSAB round ({csab_round_year})")
     print(Fore.GREEN + "1." + Fore.BLUE + "Round 1")
     print(Fore.GREEN + "2." + Fore.BLUE + "Round 2")
-    csab_round = input(Fore.RESET + "Select Option (1 to 2) : ")
+
+    csab_round = None
+    while csab_round is None:
+        user_input = input(Fore.RESET + "Select Option (1 to 2): ").strip()
+        if user_input in ["1", "2"]:
+            csab_round = user_input
+        else:
+            print(Fore.RED + "Invalid input! Please select 1 or 2." + Fore.RESET)
+
     csv_files("csab", csab_round, csab_round_year)
 
+
 # define the path of csv files for different types of colleges
-
-
 def csv_files(type, round, year):
     # Get path to the temporary folder created by PyInstaller
     if getattr(sys, 'frozen', False):
@@ -228,7 +253,7 @@ def csv_files(type, round, year):
             "NITs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_nits.csv"),
             "GFTIs": os.path.join(cwd, "josaa", f"{year}", f"round_{josaa_rounds}", "ranks_gftis.csv")
         }
-        josaa_institue_types(CSV_FILES)
+        josaa_institute_types(CSV_FILES)
     elif type == "csab":
         csab_rounds = round
         csv_path = os.path.join(
@@ -238,92 +263,96 @@ def csv_files(type, round, year):
             f"round_{csab_rounds}",
             "ranks.csv")
         df = pd.read_csv(csv_path)
-        csab_institue_types(df)
+        csab_institute_types(df)
 
-
-def csab_institue_types(df):
+def csab_institute_types(df):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    #progress bar for step-3
-    total=100
-    steps_completed= int(total*0.3)
-    display_progress_bar("STEP 3/10 ",steps_completed=steps_completed,total=total, duration=0.3)
-    # ask for user input for institute type
+
+    # progress bar for step-3
+    total = 100
+    steps_completed = int(total * 0.3)
+    display_progress_bar("STEP 3/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+
     print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
     print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
-    option = input(Fore.RESET + "Select Option (1 to 4): ")
+    # loop until valid input
+    option = None
+    while option is None:
+
+        user_input = input(Fore.RESET + "Select Option (1 to 4): ").strip()
+        if user_input in ["1", "2", "3", "4"]:
+            option = user_input
+        else:
+            print(Fore.RED + "Invalid option! Please select a number between 1 and 4." + Fore.RESET)
 
     # filter the dataframe based on the selected option
     if option == "1":
-        df = df[~df['Institute'].str.contains(
-            'Indian Institute of Technology')]
+        df = df[~df['Institute'].str.contains('Indian Institute of Technology')]
     elif option == "2":
-        df = df[df['Institute'].str.contains(
-            'Indian Institute of Information Technology')]
+        df = df[df['Institute'].str.contains('Indian Institute of Information Technology')]
     elif option == "3":
-        df = df[df['Institute'].str.contains(
-            'National Institute of Technology')]
+        df = df[df['Institute'].str.contains('National Institute of Technology')]
     elif option == "4":
-        df = df[~df['Institute'].str.contains(
-            'National Institute of Technology')]
-        df = df[~df['Institute'].str.contains(
-            'Indian Institute of Information Technology')]
-    else:
-        print("Invalid option. Please select again.")
+        df = df[~df['Institute'].str.contains('National Institute of Technology')]
+        df = df[~df['Institute'].str.contains('Indian Institute of Information Technology')]
 
     main(df)
 
 
-def josaa_institue_types(CSV_FILES):
+def josaa_institute_types(CSV_FILES):
     # clear the screen
     os.system("cls" if os.name == "nt" else "clear")
     print(Fore.GREEN + ascii_art)
-    #progress bar for step-3
-    total=100
-    steps_completed= int(total*0.3)
-    display_progress_bar("STEP 3/10 ",steps_completed=steps_completed,total=total, duration=0.3)
-    # ask for user input for institute type
+
+    # progress bar for step-3
+    total = 100
+    steps_completed = int(total * 0.3)
+    display_progress_bar("STEP 3/10 ", steps_completed=steps_completed, total=total, duration=0.3)
+
     print(Fore.YELLOW + "Select Institute type:")
     print(Fore.GREEN + "1." + Fore.BLUE + "ALL (No IITs Included)")
     print(Fore.GREEN + "2." + Fore.BLUE + "IIITs")
     print(Fore.GREEN + "3." + Fore.BLUE + "NITs")
     print(Fore.GREEN + "4." + Fore.BLUE + "GFTIs")
     print(Fore.GREEN + "5." + Fore.BLUE + "IITs")
-    option = input(Fore.RESET + "Select Option (1 to 5): ")
+    # loop until valid input
+    college_type = None
+    option = None
+    while option is None:
 
-    # filter the dataframe based on the selected option
-    if option == "1":
-        college_type = "ALL"
-    elif option == "2":
-        college_type = "IIITs"
-    elif option == "3":
-        college_type = "NITs"
-    elif option == "4":
-        college_type = "GFTIs"
-    elif option == "5":
-        college_type = "IITs"
-    else:
-        print("Invalid option. Please select again.")
-        josaa_institue_types
+        user_input = input(Fore.RESET + "Select Option (1 to 5): ").strip()
+        if user_input in ["1", "2", "3", "4", "5"]:
+            option = user_input
+            if option == "1":
+                college_type = "ALL"
+            elif option == "2":
+                college_type = "IIITs"
+            elif option == "3":
+                college_type = "NITs"
+            elif option == "4":
+                college_type = "GFTIs"
+            elif option == "5":
+                college_type = "IITs"
+        else:
+            print(Fore.RED + "Invalid option! Please select a number between 1 and 5." + Fore.RESET)
 
     # read the csv file based on the selected college type
     csv_path = CSV_FILES[college_type]
     df = pd.read_csv(csv_path)
+
     if option == "1":
-        # Remove all IITs occurance if "ALL" option was choosed.
-        df = df[~df['Institute'].str.contains(
-            'Indian Institute of Technology')]
+        # Remove all IITs occurrence if "ALL" option was chosen
+        df = df[~df['Institute'].str.contains('Indian Institute of Technology')]
         main(df)
     elif option == "5":
-        # fix ranks with strings in it.
-        df['Closing Rank'] = df['Closing Rank'].str.extract(
-            r'(\d+)').astype(float)
-        df['Opening Rank'] = df['Opening Rank'].str.extract(
-            r'(\d+)').astype(int)
+        # fix ranks with strings in them
+        df['Closing Rank'] = df['Closing Rank'].str.extract(r'(\d+)').astype(float)
+        df['Opening Rank'] = df['Opening Rank'].str.extract(r'(\d+)').astype(int)
         main(df)
     else:
         main(df)
