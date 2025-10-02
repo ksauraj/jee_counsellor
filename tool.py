@@ -12,6 +12,7 @@ import socketserver
 import threading
 from tqdm import tqdm 
 import shutil
+import math
 
 init()
 
@@ -768,7 +769,6 @@ def display_df_web(df, heading, subheading):
         subprocess.Popen(["xdg-open", filename],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-
 # main function to run the CLI tool
 def main(df):
     while True:
@@ -776,47 +776,89 @@ def main(df):
         os.system("cls" if os.name == "nt" else "clear")
         filtered_df = filter_programs(institute_df)
 
-        def filter_by_choices(choices, column_name, steps):
-            unique_choices = institute_df[column_name].unique()
+        def filter_by_choices(df, column_name, steps):
+            unique_choices = list(df[column_name].unique())
 
             os.system("cls" if os.name == "nt" else "clear")
             print(Fore.GREEN + ascii_art)
             
-            total=100
-            steps_completed=int(total*steps)
-            steps_count = int(steps*10)
-            str_steps=f"STEP {steps_count}/10"
-            display_progress_bar(str_steps,steps_completed=steps_completed,total=total, duration=0.3)
+            total = 100
+            steps_completed = int(total * steps)
+            steps_count = int(steps * 10)
+            str_steps = f"STEP {steps_count}/10"
+            display_progress_bar(str_steps, steps_completed=steps_completed, total=total, duration=0.3)
 
-           
             print(f"{Fore.YELLOW}Select {column_name}:")
+            print(Fore.GREEN + "1." + Fore.BLUE + " All")
 
-            print(Fore.GREEN + "1." + Fore.BLUE +" All")
-            for i, choice in enumerate(unique_choices, start=2):
-                print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
+            # ✅ If Institute list is very long → paginate
+            if column_name == "Institute" and len(unique_choices) > 25:
+                page_size = 25
+                total_pages = (len(unique_choices) + page_size - 1) // page_size
+                current_page = 1
 
+                while True:
+                    start = (current_page - 1) * page_size
+                    end = start + page_size
+                    page_choices = unique_choices[start:end]
 
+                    os.system("cls" if os.name == "nt" else "clear")
+                    print(Fore.GREEN + ascii_art)
+                    print(f"{Fore.YELLOW}Select {column_name} (Page {current_page}/{total_pages}):")
+                    print(Fore.GREEN + "1." + Fore.BLUE + " All")
+                    for i, choice in enumerate(page_choices, start=2):
+                        print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
-            print(f"{Fore.YELLOW}")
-            print(f"You are Selecting {column_name}")
-            choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
-            selected_choices = list(map(int, choices_input.split()))
+                    print("\nOptions: [N]ext Page | [P]rev Page | Enter Numbers | [Q]uit selection")
+                    user_input = input("Enter choice: ").strip().lower()
 
-            if 1 in selected_choices:
-                return filtered_df
+                    if user_input == 'n' and current_page < total_pages:
+                        current_page += 1
+                        continue
+                    elif user_input == 'p' and current_page > 1:
+                        current_page -= 1
+                        continue
+                    elif user_input == 'q':
+                        return df
+                    else:
+                        try:
+                            selected_choices = list(map(int, user_input.split()))
+                            if 1 in selected_choices:
+                                return df
+                            else:
+                                selected_choices = [idx - 2 for idx in selected_choices]
+                                selected = [page_choices[i] for i in selected_choices if 0 <= i < len(page_choices)]
+                                return df[df[column_name].isin(selected)]
+                        except:
+                            print("Invalid input, try again.")
+                            time.sleep(1)
+                            continue
+
             else:
-                selected_choices = [choice - 2 for choice in selected_choices]
-                filtered_choices = [unique_choices[i] for i in selected_choices]
-                return filtered_df[filtered_df[column_name].isin(filtered_choices)]
+                # ✅ Normal flow for Quota, Seat Type, Gender
+                for i, choice in enumerate(unique_choices, start=2):
+                    print(f"{Fore.GREEN}{i}. {Fore.BLUE}{choice}{Fore.RESET}")
 
-        filtered_df = filter_by_choices(institute_df["Institute"], "Institute",0.5)
+                print(f"{Fore.YELLOW}")
+                print(f"You are Selecting {column_name}")
+                choices_input = input("Choose Options ((space-separated, e.g., 2 3 4) & 1 for all choices) : ")
+                selected_choices = list(map(int, choices_input.split()))
+
+                if 1 in selected_choices:
+                    return df
+                else:
+                    selected_choices = [choice - 2 for choice in selected_choices]
+                    filtered_choices = [unique_choices[i] for i in selected_choices]
+                    return df[df[column_name].isin(filtered_choices)]
+
         
-        filtered_df = filter_by_choices(institute_df["Quota"], "Quota",0.6)
+        filtered_df = filter_by_choices(institute_df, "Institute",0.5)
         
-        filtered_df = filter_by_choices(institute_df["Seat Type"], "Seat Type",0.7)
+        filtered_df = filter_by_choices(institute_df, "Quota",0.6)
+        
+        filtered_df = filter_by_choices(institute_df, "Seat Type",0.7)
        
-       
-        filtered_df = filter_by_choices(institute_df["Gender"], "Gender",0.8)
+        filtered_df = filter_by_choices(institute_df, "Gender",0.8)
        
         
 
